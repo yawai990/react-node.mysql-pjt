@@ -1,0 +1,26 @@
+create user table
+CREATE TABLE IF NOT EXISTS create_users(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(70) NOT NULL UNIQUE,
+    password VARCHAR(50) NOT NULL,
+    confirmpassword VARCHAR(50) NOT NULL CHECK (confirmpassword = password)
+);
+
+INSERT INTO  create_users(name,email,password,confirmpassword)
+VALUES('aung aung','aungaung@gmail.com',SHA1(12345),SHA1(12345));
+
+exit user
+
+CREATE TABLE IF NOT EXISTS exist_users(
+       name VARCHAR(50) NOT NULL UNIQUE,
+       email VARCHAR(70) NOT NULL UNIQUE,
+       password VARCHAR(50) NOT NULL,
+       user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+       FOREIGN KEY (user_id) REFERENCES create_users(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+DROP TABLE IF EXISTS exist_users;
+
+INSERT INTO  exist_users(name,email,password)
+VALUES('aung aung','aungaung@gmail.com',SHA1(12345));

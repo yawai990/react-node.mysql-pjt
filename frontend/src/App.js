@@ -8,7 +8,7 @@ const App = () => {
   const {haveAcc} = useGlobalContext();
 
   if(!haveAcc){
-   return <div className='w-screen h-screen flex justify-center items-center'>
+   return <div className='w-screen h-screen flex justify-center items-center relative'>
    <BrowserRouter>
     <Routes>
       <Route path='/' element={<Signin />} />

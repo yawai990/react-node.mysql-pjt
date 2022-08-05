@@ -5,3 +5,6 @@ CREATE TABLE IF NOT EXISTS users(
     password VARCHAR(70) NOT NULL,
     role ENUM('admin','user') NOT NULL DEFAULT 'user'
 );
+
+INSERT INTO users(name,email,password)
+VALUES()

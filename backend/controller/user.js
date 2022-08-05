@@ -5,10 +5,10 @@ const {connection} = require('../db/db');
 //     console.log(result)
 // })
 
-const login=(req,res,next)=>{
-        const {email,password} =req.body;
+const login=async (req,res)=>{
+        const {email,password} =await req.body;
 
-    connection.query(`SELECT * FROM users WHERE email ='${email}' && password= SHA1('${password}')`,(err,results,filed)=>{
+   await connection.query(`SELECT * FROM users WHERE email ='${email}' && password= SHA1('${password}')`,(err,results,filed)=>{
             if(err) throw err;
 
             if(results.length <= 0){
@@ -17,8 +17,32 @@ const login=(req,res,next)=>{
             return res.status(200).json(results)
         })
 };
-const signUp = (req,res,next)=>{
-    res.send('user created')
+const signUp =async (req,res)=>{
+    const {firstname,lastname,email,password,confirmpassword} =await req.body;
+
+    //check passwords are matched or not; if Not give the error from server
+    if(password !== confirmpassword){
+            return res.json({
+                message:'password are not matching,check your passworde'
+            })
+    }else{
+        //check if the email is already in user table
+        await connection.query(`SELECT * FROM users WHERE email ='${email}'`,(err,result)=>{
+                if(err) throw err;
+                if(result.length > 0){
+                    return res.json({
+                        message:'Account is already with that email'
+                    });
+
+                    //otherwise insert the data to the database for new user
+                }else{
+                       connection.query(`INSERT INTO users(name,email,password) VALUES('${firstname + ' ' + lastname}','${email}',SHA1(${password}))`,(err,result)=>{
+                        if(err) throw err;
+                        return res.status(202).json(result)
+                    })
+                }
+        })
+    }
 
 };
 

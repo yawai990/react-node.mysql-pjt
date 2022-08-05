@@ -3,10 +3,13 @@ import React,{useState,createContext,useContext} from "react";
 const myContext = createContext();
 
 export const Context =({children})=>{
-    const [haveAcc,setHaveAcc] = useState(false);
+
+    //check the acc is if exit in the database 
+    const [haveAcc,setHaveAcc] = useState(true);
+
+    //get the current user data
     const [user,setUser] = useState('');
 
-    console.log(user)
     const addUser = (userData)=>{
         setUser(userData)
 

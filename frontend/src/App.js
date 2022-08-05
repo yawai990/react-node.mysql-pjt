@@ -20,7 +20,6 @@ const App = () => {
   }
   return (
     <BrowserRouter>
-    <h1 className='underline text-3xl text-slate-500'>hello world</h1>
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='/home' element={<Home />} />

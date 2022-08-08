@@ -6,6 +6,7 @@ export const Context =({children})=>{
 
     //check the acc is if exit in the database 
     const [haveAcc,setHaveAcc] = useState(true);
+    const [dataShow,setDataShow] = useState('income');
 
     //get the current user data
     const [user,setUser] = useState('');
@@ -18,7 +19,11 @@ export const Context =({children})=>{
         }
     }
 
-    return <myContext.Provider value={{haveAcc,addUser,user,setHaveAcc}}>
+    return <myContext.Provider value={{
+        haveAcc,addUser
+        ,user,setHaveAcc,
+        dataShow,setDataShow
+        }}>
         {children}
     </myContext.Provider>
 };

@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
 import { Signin,Signup } from './auth';
-import {Home} from './pages';
+import {Home,Staff} from './pages';
 import { useGlobalContext } from './Context/myContext';
 
 const App = () => {
@@ -19,12 +19,10 @@ const App = () => {
     </div>
   }
   return (
-    <BrowserRouter>
-    <Routes>
-      <Route path='/' element={<Home />} />
-      <Route path='/home' element={<Home />} />
-    </Routes>
-    </BrowserRouter>
+    <>
+    <Home />
+    <Staff />
+    </>
   )
 }
 

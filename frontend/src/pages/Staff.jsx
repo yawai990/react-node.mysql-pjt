@@ -1,5 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import {AiOutlineSearch} from 'react-icons/ai';
+import {StaffModel} from '../components';
+import { useGlobalContext } from '../Context/myContext';
 
 const staffs = [
     {profile:'https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',name:'aung aung',dept:'manufacturing',hireDate:'20/12/2022'},
@@ -9,8 +11,9 @@ const staffs = [
 ];
 
 const Staff = () => {
+    const {getStaffId,staffId} = useGlobalContext();
     const [searchTerm,setSearchTerm]= useState('');
-    const [employeeData,setEmpolyeeData] = useState(undefined)
+    const [employeeData,setEmpolyeeData] = useState(undefined);
 
     useEffect(() => {
         setEmpolyeeData(staffs)
@@ -19,7 +22,7 @@ const Staff = () => {
     const onHandleSubmit =e=>{
         e.preventDefault()
         
-        const filter = staffs.filter(staff=>staff.name.includes(searchTerm) || staff.dept.includes(searchTerm) && staff);
+        const filter = staffs.filter(staff=>(staff.name.includes(searchTerm) || staff.dept.includes(searchTerm)) && staff);
 
         setEmpolyeeData(filter);
 
@@ -28,14 +31,16 @@ const Staff = () => {
 
 
   return (
-    <div className='w-screen p-2'>
+    <div className='w-full h-screen relative'>
+        
+        {staffId !== null && <StaffModel />}
         <h1 className='text-2xl text-gray-600 tracking-wider font-bold'>Employees</h1>
 
         <div className='w-4/5 m-auto rounded-lg overflow-hidden'>
 
         <section className='w-full bg-slate-100 py-2 flex justify-end'>
-        <form className='px-2 flex border-b border-blue-400 mr-2 focus:border-red-400 duration-400' onSubmit={onHandleSubmit}>
-        <input type="text" className='outline-none bg-transparent' value={searchTerm} onChange={e=>setSearchTerm(e.target.value)} />
+        <form className='flex mr-2 focus:border-red-400 duration-400' onSubmit={onHandleSubmit}>
+        <input type="text" className='px-2 outline-none bg-transparent border-b border-gray-400 focus:border-red-500 duration-100' value={searchTerm} onChange={e=>setSearchTerm(e.target.value)} />
         <button className='flex justify-center items-center text-slate-800 text-lg'>
             <AiOutlineSearch />
         </button>
@@ -49,14 +54,14 @@ const Staff = () => {
                 <th>Hire Date</th>
                 </tr>
             </thead>
-            {employeeData === undefined ? <tbody>
-                <tr>
-                    <td>No record to display</td>
+            {employeeData === undefined || employeeData.length <= 0 ? <tbody>
+                <tr className='my-2'>
+                    <td className='text-lg font-semibold tracking-wider py-2'>No record to display</td>
                     </tr>
                 </tbody>:
             <tbody className='text-center capitalize'>
                {employeeData.map((staff,ind)=>(
-                    <tr key={ind} className='bg-white py-5 my-2 hover:bg-gray-200 border-b'>
+                    <tr key={ind} className='bg-white py-5 my-2 hover:bg-gray-200 border-b cursor-pointer' onClick={(e)=>getStaffId(ind)}>
                         <td className='flex justify-center items-center py-1 my-1'>
                             <img src={staff.profile} alt="" className='w-10 h-10 block rounded-full object-cover' />
                             <span className='ml-2'>

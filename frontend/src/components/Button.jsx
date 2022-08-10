@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Button = ({text,color}) => {
+const Button = ({text,color,func}) => {
   return (
     <button 
     style={{backgroundColor:color ? color:'rgba(0,0,0,0.6'}}

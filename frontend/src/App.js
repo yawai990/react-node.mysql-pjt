@@ -5,7 +5,7 @@ import {Home,Staff} from './pages';
 import { useGlobalContext } from './Context/myContext';
 
 const App = () => {
-  const {haveAcc} = useGlobalContext();
+  const {haveAcc,staffId} = useGlobalContext();
 
   if(!haveAcc){
    return <div className='w-screen h-screen flex justify-center items-center relative'>

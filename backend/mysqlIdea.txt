@@ -6,5 +6,20 @@ CREATE TABLE IF NOT EXISTS users(
     role ENUM('admin','user') NOT NULL DEFAULT 'user'
 );
 
-INSERT INTO users(name,email,password)
-VALUES()
+CREATE TABLE IF NOT EXISTS employees(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    nrc VARCHAR(50) NOT NULL UNIQUE,
+    education VARCHAR(50) NOT NULL,
+    phone INT NOT NULL UNIQUE,
+    dob DATE NOT NULL,
+    dept VARCHAR(15) NOT NULL,
+    position VARCHAR(15) NOT NULL,
+    status ENUM('0','1') NOT NULL,
+    image MEDIUMTEXT,
+    other_qulification TEXT
+);
+
+dummy data;
+
+INSERT INTO employees(name,nrc,education,phone,dob,)

@@ -10,8 +10,9 @@ const connection =mysql.createConnection({
 connection.connect(err=>{
         if(err){
                 console.log('server error')
+        }else{
+                console. log('server and backend are connected')
         }
-        console.log('server and backend are connected')
 });
 
 module.exports = {connection}

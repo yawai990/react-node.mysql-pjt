@@ -22,4 +22,5 @@ CREATE TABLE IF NOT EXISTS employees(
 
 dummy data;
 
-INSERT INTO employees(name,nrc,education,phone,dob,)
+INSERT INTO employees(name,nrc,education,phone,dob,dept,position,status)
+VALUES('Thaw Thaw','14/PaTaNa(N)0234568','B.E',09123456789,'2019-10-4','M&E','Chief Engineer','0');

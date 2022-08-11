@@ -1,29 +1,19 @@
 import React,{useState,useEffect} from 'react';
-import {AiOutlineSearch} from 'react-icons/ai';
-import {StaffModel} from '../components';
+import {AiOutlineSearch,AiOutlineClose} from 'react-icons/ai';
+import {BsPersonFill} from 'react-icons/bs';
+import {StaffForm, StaffModel} from '../components';
 import { useGlobalContext } from '../Context/myContext';
 
-const staffs = [
-    {profile:'https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',name:'aung aung',dept:'manufacturing',hireDate:'20/12/2022'},
-    {profile:'https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cGVyc29ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',name:'zaw zaw',dept:'M&E',hireDate:'10/11/2019'},
-    {profile:'https://images.unsplash.com/photo-1499952127939-9bbf5af6c51c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1476&q=80',name:'kyaw kyaw',dept:'system developement',hireDate:'20/12/2018'},
-    {profile:'https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjB8fHBlcnNvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',name:'ko ko aung',dept:'purchase',hireDate:'20/12/2015'}
-];
-
 const Staff = () => {
-    const {getStaffId,staffId} = useGlobalContext();
+    const {staffId,setStaffId,form,employeeData,setEmpolyeeData,getAllStaff} = useGlobalContext();
     const [searchTerm,setSearchTerm]= useState('');
-    const [employeeData,setEmpolyeeData] = useState(undefined);
 
-    useEffect(() => {
-        setEmpolyeeData(staffs)
-    }, []);
-    
     const onHandleSubmit =e=>{
         e.preventDefault()
         
-        const filter = staffs.filter(staff=>(staff.name.includes(searchTerm) || staff.dept.includes(searchTerm)) && staff);
+        const filter = employeeData.filter(staff=>(staff.name.includes(searchTerm) || staff.dept.includes(searchTerm)) && staff);
 
+        console.log(searchTerm)
         setEmpolyeeData(filter);
 
         setSearchTerm('')
@@ -34,9 +24,13 @@ const Staff = () => {
     <div className='w-full h-screen relative'>
         
         {staffId !== null && <StaffModel />}
-        <h1 className='text-2xl text-gray-600 tracking-wider font-bold'>Employees</h1>
+        {form && <StaffForm />}
 
-        <div className='w-4/5 m-auto rounded-lg overflow-hidden'>
+        <div className='my-3 p-4'>
+        <h1 className='text-2xl text-gray-600 tracking-wider font-extrabold'>Employees</h1>
+        </div>
+
+        <div className='w-4/5 m-auto rounded-lg drop-shadow-xl overflow-hidden'>
 
         <section className='w-full bg-slate-100 py-2 flex justify-end'>
         <form className='flex mr-2 focus:border-red-400 duration-400' onSubmit={onHandleSubmit}>
@@ -44,14 +38,23 @@ const Staff = () => {
         <button className='flex justify-center items-center text-slate-800 text-lg'>
             <AiOutlineSearch />
         </button>
+        <button className='flex justify-center items-center text-red-700 ' onClick={getAllStaff}>
+            <AiOutlineClose />
+        </button>
         </form>
         </section>
-        <table className='w-full h-auto border bg-white drop-shadow-2xl'>
+        <table className='h-auto border bg-white drop-shadow-2xl overflow-x-scroll block whitespace-nowrap'>
             <thead className='bg-gray-600 text-white'>
                 <tr>
-                <th className='py-2'>Employee</th>
-                <th>Deparment</th>
-                <th>Hire Date</th>
+                <th className='py-2 w-52 inline-block'>Employee</th>
+                <th className='w-52 inline-block'>Deparment</th>
+                <th className='w-52 inline-block'>Position</th>
+                <th className='w-40 inline-block'>Status</th>
+                <th className='w-40 inline-block'>Education</th>
+                <th className='w-52 inline-block'>Other Qulification</th>
+                <th className='w-40 inline-block'>Phone</th>
+     
+
                 </tr>
             </thead>
             {employeeData === undefined || employeeData.length <= 0 ? <tbody>
@@ -61,15 +64,24 @@ const Staff = () => {
                 </tbody>:
             <tbody className='text-center capitalize'>
                {employeeData.map((staff,ind)=>(
-                    <tr key={ind} className='bg-white py-5 my-2 hover:bg-gray-200 border-b cursor-pointer' onClick={(e)=>getStaffId(ind)}>
-                        <td className='flex justify-center items-center py-1 my-1'>
-                            <img src={staff.profile} alt="" className='w-10 h-10 block rounded-full object-cover' />
+                    <tr key={ind} className='bg-white py-2 my-2 hover:bg-gray-200 border-b cursor-pointer flex items-center' onClick={(e)=>setStaffId(staff.id)}>
+                        <td className='w-52 flex justify-center items-center'>
+                            {staff.image === null ? <div className='w-10 h-10 text-gray-400 rounded-full flex justify-center items-center bg-white drop-shadow-xl'>
+                                <BsPersonFill className='w-4/5 h-4/5' />
+                            </div>:<img src={staff.image} alt="" className='w-10 h-10 block rounded-full object-cover drop-shadow-xl bg-white' />}
+                            
                             <span className='ml-2'>
                             {staff.name}
                             </span>
                             </td>
-                        <td>{staff.dept}</td>
-                        <td>{staff.hireDate}</td>
+                        <td className='w-52'>{staff.dept}</td>
+                        <td className='w-52'>{staff.position}</td>
+                        <td className='w-40'>{staff.status === "1" ? <div className='w-7 h-2 rounded-lg bg-green-600 m-auto'></div>:
+                     <div className='w-7 h-2 rounded-lg bg-red-600 m-auto'></div>
+                        }</td>
+                        <td className='w-40'>{staff.education}</td>
+                        <td className='w-52'>{staff.other_qulification}</td>
+                        <td className='w-40'>{staff.phone}</td>
                     </tr>
                 ))}
             </tbody>

@@ -10,30 +10,36 @@ const {connection} = require('../db/db');
 };
 
  const getSingleStaff =async (req,res)=>{
-        const id =parseInt(req.params.id);
+        const id =req.params.id;
 
-        await connection.query(`SELECT * FROM employees WHERE id = ${id}`,(err,result)=>{
+        await connection.query(`SELECT id,name,nrc,education,phone,DATE_FORMAT(dob,'%d-%m-%Y') AS 'dob',dept,position,status,image,other_qulification FROM employees WHERE id = ${id}`,(err,result)=>{
             if(err) throw err;
             res.status(200).json(result);
         })
 };
 
- const updateStaffs =async (req,res)=>{
-    const id =parseInt(req.params.id);
+const addStaff =async(req,res)=>{
+    const {name,nrc,education,phone,dob,dept,position,status,image,other_qulification} = req.body;
 
-    await connection.query(`SELECT * FROM employees WHERE id = ${id}`,(err,result)=>{
+    await connection.query(`INSERT INTO employees(name,nrc,education,phone,dob,dept,position,status,image,other_qulification)
+    VALUES('${name}','${nrc}','${education}','${phone}','${dob}','${dept}','${position}','${status}','${image ? image:''}','${other_qulification ? other_qulification:'null'}')`,(err,result)=>{
         if(err) throw err;
+        res.status(204).json({
+            message:"new employee added successfully"
+        })
+    })
+}
+ const updateStaffs =async (req,res)=>{
+    const id =req.params.id;
 
-        //getting the data from database
-       res.status(200).json(result)
+    const {name,nrc,education,phone,dob,dept,position,status,image,other_qulification} = req.body;
 
-    });
-    // const {name,nrc,education,phone,address,dob,hiredate,dept,position,status,image,other} = req.body;
 
-    // await connection.query(`UPDATE employees SET name='${name}',nrc='${nrc}',education='${education}',phone=${phone},address='${address}',dob='${dob}',hiredata=${hiredate},dept='${dept}',position='${position}',status='${status}',image='${image}',other_qulification='${other} WHERE id=${id}'`,(err,result)=>{
-    //     if(err) throw err;
-    //     res.status(204).json({message:'Data updated'})
-    // })
+    console.log(req.body)
+    await connection.query(`UPDATE employees SET name='${name}',nrc='${nrc}',education='${education}',phone='${phone}',dob='${dob}',dept='${dept}',position='${position}',status='${status}',image='${image ? image:''}',other_qulification='${other_qulification ? other_qulification:null}' WHERE id=${id}`,(err,result)=>{
+        if(err) throw err;
+        res.status(204).json({message:'Data updated'})
+    })
 };
 
  const deleteStaff =async(req,res)=>{
@@ -48,4 +54,4 @@ const {connection} = require('../db/db');
     })
 }
 
-module.exports ={getAllstaffs,getSingleStaff,updateStaffs,deleteStaff}
+module.exports ={getAllstaffs,getSingleStaff,updateStaffs,deleteStaff,addStaff}

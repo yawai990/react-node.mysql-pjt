@@ -2,13 +2,15 @@ import React,{useState} from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useGlobalContext } from '../../Context/myContext';
 import FileBase64 from 'react-file-base64';
+import { updateEmployee } from '../../api';
 
 const initState={name:'',nrc:'',region:'',township:'',naing:'',number:'',
 phone:'',dob:'',dept:'',position:'',education:'' ,other_qulification:'',status:'',image:''};
 
 const Form = () => {
-    const {setForm} = useGlobalContext();
-    const [employeeData,setEmployeeData] = useState(initState);
+    const {setForm,updateOneEmployee,setStaffId} = useGlobalContext();
+
+    const [employeeData,setEmployeeData] = useState(updateOneEmployee[0]);
 
     const onHandleSubmit =e=>{
       e.preventDefault();
@@ -16,8 +18,13 @@ const Form = () => {
 
       setEmployeeData({...employeeData,nrc:nrc})
 
-      // console.log(nrc)
-      console.log(employeeData);
+      updateEmployee(employeeData.id,employeeData).then(resp=>{
+        setStaffId(null)
+      })
+      //clear the input value
+      clear()
+      //remove the form 
+      setForm(false)
 
     }
 
@@ -30,7 +37,6 @@ const Form = () => {
 
       <div className='pb-5'>
         <h1 className='uppercase text-lg font-semibold text-center '>Update Employees</h1>
-
 
       <button className='fixed top-2 right-2 bg-red-400 text-white hover:bg-red-700 p-1 drop-shadow-2xl text-xl rounded-full' onClick={()=>setForm(false)}>
           <AiOutlineClose />
@@ -90,7 +96,7 @@ const Form = () => {
                   <input type="date" name='nrc' id='nrc' 
                                     value={employeeData.dob} 
                                     onChange={(e)=>setEmployeeData({...employeeData,dob:e.target.value})}
-                  pattern="dd//mm//yy" className='w-full border outline-none p-1 rounded-lg focus:border-blue-400' />
+                                    pattern="(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/\d{4}" className='w-full border outline-none p-1 rounded-lg focus:border-blue-400' />
                 </div>
 
                 <div className='flex flex-col md:flex-row items-center'>
@@ -139,9 +145,10 @@ const Form = () => {
                 <div className='flex flex-col md:flex-row items-center'>
                 <label htmlFor="img" className='w-full md:w-2/4 md:text-center font-semibold text-lg'>Photo :</label>
                   {/* <input type="file" name='img' id='img' className='w-full border outline-none p-1 rounded-lg focus:border-blue-400' /> */}
+                  <div className='w-full border p-1 rounded-lg'>
                   <FileBase64 type='file' multiple={false} value={employeeData.image} onDone={({base64})=>setEmployeeData({...employeeData,image:base64})} />
+                  </div>
                 </div>
-
 
                 <button className='w-full bg-blue-500 rounded-lg my-2 text-white py-1 text-lg hover:bg-blue-800 hover:drop-shadow-2xl'>Update</button>
         </form>

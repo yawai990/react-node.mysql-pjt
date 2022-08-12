@@ -6,7 +6,7 @@ const Button = ({text,color,func}) => {
     <button 
     style={{backgroundColor:color ? color:'rgba(0,0,0,0.6'}}
     className='mt-3 p-2 rounded-lg hover:drop-shadow-xl text-white'
-    onClick={()=>func}
+    onClick={func}
     >
         {text}
     </button>

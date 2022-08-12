@@ -1,11 +1,11 @@
 import React,{useState,useEffect} from 'react';
 import {AiOutlineSearch,AiOutlineClose} from 'react-icons/ai';
 import {BsPersonFill} from 'react-icons/bs';
-import {StaffForm, StaffModel} from '../components';
+import {StaffForm, StaffModel,Button,AddStaff} from '../components';
 import { useGlobalContext } from '../Context/myContext';
 
 const Staff = () => {
-    const {staffId,setStaffId,form,employeeData,setEmpolyeeData,getAllStaff} = useGlobalContext();
+    const {staffId,setAddForm,addForm,user,form,employeeData,setEmpolyeeData,getAllStaff,getOneStaff} = useGlobalContext();
     const [searchTerm,setSearchTerm]= useState('');
 
     const onHandleSubmit =e=>{
@@ -13,7 +13,6 @@ const Staff = () => {
         
         const filter = employeeData.filter(staff=>(staff.name.includes(searchTerm) || staff.dept.includes(searchTerm)) && staff);
 
-        console.log(searchTerm)
         setEmpolyeeData(filter);
 
         setSearchTerm('')
@@ -25,9 +24,13 @@ const Staff = () => {
         
         {staffId !== null && <StaffModel />}
         {form && <StaffForm />}
+        {addForm && <AddStaff />}
 
-        <div className='my-3 p-4'>
+        <div className='my-3 p-4 flex items-center justify-between'>
         <h1 className='text-2xl text-gray-600 tracking-wider font-extrabold'>Employees</h1>
+        {user[0].role === 'admin' && <div>
+            <Button text='Add New Employee' color='green' func={()=>setAddForm(!addForm)} />
+            </div>}
         </div>
 
         <div className='w-4/5 m-auto rounded-lg drop-shadow-xl overflow-hidden'>
@@ -53,9 +56,7 @@ const Staff = () => {
                 <th className='w-40 inline-block'>Education</th>
                 <th className='w-52 inline-block'>Other Qulification</th>
                 <th className='w-40 inline-block'>Phone</th>
-     
-
-                </tr>
+                     </tr>
             </thead>
             {employeeData === undefined || employeeData.length <= 0 ? <tbody>
                 <tr className='my-2'>
@@ -63,10 +64,11 @@ const Staff = () => {
                     </tr>
                 </tbody>:
             <tbody className='text-center capitalize'>
-               {employeeData.map((staff,ind)=>(
-                    <tr key={ind} className='bg-white py-2 my-2 hover:bg-gray-200 border-b cursor-pointer flex items-center' onClick={(e)=>setStaffId(staff.id)}>
+
+               {employeeData.map((staff,ind)=>{
+                               return <tr key={ind} className='bg-white py-2 my-2 hover:bg-gray-200 border-b cursor-pointer flex items-center' onClick={(e)=>getOneStaff(staff.id)}>
                         <td className='w-52 flex justify-center items-center'>
-                            {staff.image === null ? <div className='w-10 h-10 text-gray-400 rounded-full flex justify-center items-center bg-white drop-shadow-xl'>
+                            {staff.image === null || staff.image === '' ? <div className='w-10 h-10 text-gray-400 rounded-full flex justify-center items-center bg-white drop-shadow-xl'>
                                 <BsPersonFill className='w-4/5 h-4/5' />
                             </div>:<img src={staff.image} alt="" className='w-10 h-10 block rounded-full object-cover drop-shadow-xl bg-white' />}
                             
@@ -83,11 +85,12 @@ const Staff = () => {
                         <td className='w-52'>{staff.other_qulification}</td>
                         <td className='w-40'>{staff.phone}</td>
                     </tr>
-                ))}
+                })}
             </tbody>
 }
         </table>
         </div>
+
     </div>
   )
 }

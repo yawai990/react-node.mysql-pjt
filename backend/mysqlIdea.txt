@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS employees(
     name VARCHAR(50) NOT NULL,
     nrc VARCHAR(50) NOT NULL UNIQUE,
     education VARCHAR(50) NOT NULL,
-    phone INT NOT NULL UNIQUE,
+    phone VARCHAR(15) NOT NULL UNIQUE,
     dob DATE NOT NULL,
     dept VARCHAR(15) NOT NULL,
     position VARCHAR(15) NOT NULL,
@@ -22,5 +22,9 @@ CREATE TABLE IF NOT EXISTS employees(
 
 dummy data;
 
-INSERT INTO employees(name,nrc,education,phone,dob,dept,position,status)
-VALUES('Thaw Thaw','14/PaTaNa(N)0234568','B.E',09123456789,'2019-10-4','M&E','Chief Engineer','0');
+    INSERT INTO employees(name,nrc,education,phone,dob,dept,position,status,image,other_qulification)
+    VALUES('zaw zaw','12/KaTaTa(N)0987641','B.E',09234567891,'2020-10-4','M&E','Engineer','0',''),
+    ('maung maung','14/PathaNa(N)097856','B.A(english)',09250364540,'2000-03-10','Engieering','Chief Engineer','1','CVT_Myanmar');
+
+INSERT INTO employees(name,nrc,education,phone,dob,dept,position,status,image,other_qulification)
+VALUES('aye aye','12/KaTaTa(N)098765','B.A','099876543','2020-10-4','M&E','Engineer','0',null,null);

@@ -8,28 +8,23 @@ const initState={name:'',nrc:'',region:'',township:'',naing:'',number:'',
 phone:'',dob:'',dept:'',position:'',education:'' ,other_qulification:'',status:'',image:''};
 
 const Form = () => {
-    const {setForm,updateOneEmployee,setStaffId} = useGlobalContext();
+    const {setForm,updateOneEmployee,setStaffId,setRespText} = useGlobalContext();
 
     const [employeeData,setEmployeeData] = useState(updateOneEmployee[0]);
 
-    const onHandleSubmit =e=>{
+    const onHandleSubmit =async(e)=>{
       e.preventDefault();
-      const nrc =`${employeeData.region}/${employeeData.township}(N)${employeeData.number}`;
-
-      setEmployeeData({...employeeData,nrc:nrc})
+    
+      setEmployeeData({...employeeData})
 
       updateEmployee(employeeData.id,employeeData).then(resp=>{
         setStaffId(null)
+        setRespText(resp.data.message)
       })
-      //clear the input value
-      clear()
       //remove the form 
       setForm(false)
 
     }
-
-    const clear=()=>setEmployeeData(initState)
-
   return (
     <div className='w-full bg-black/[0.08] absolute z-50 p-2 md:p-0'>
 
@@ -57,16 +52,16 @@ const Form = () => {
                 <label htmlFor="dept" className='w-full md:w-2/4 md:text-center font-semibold text-lg'>NRC Number :</label>
                   {/* <input type="text" name='nrc' id='nrc' className='w-full border outline-none p-1 rounded-lg focus:border-blue-400' /> */}
                   <div name='nrc' id="nrc" className='w-full outline-none p-1 rounded-lg focus:border-blue-400 flex gap-2'>
-                    <select name="region" id="" 
-                        value={employeeData.region} 
+                    <select name="region" id="region" 
+                        value={employeeData.region || 1} 
                         onChange={(e)=>setEmployeeData({...employeeData,region:e.target.value})} 
                     className='border outline-none p-1 rounded-lg focus:border-blue-400'>
                        {[1,2,3,4,5,6,7,8,9,10,11,12,13,14].map(num=>(
-                        <option key={num} value={num}>{num}</option>
+                        <option key={num} value={`${num}`}>{num}</option>
                        ))}
                     </select>
                     <input type="text"  
-                        value={employeeData.township} 
+                        value={employeeData.township || ''} 
                         onChange={(e)=>setEmployeeData({...employeeData,township:e.target.value})} 
                     className='border flex-1 rounded-lg focus:border-blue-400 outline-none'  />
 
@@ -78,7 +73,7 @@ const Form = () => {
                     </select>
 
                     <input type="number" min={1} max={999999}
-                        value={employeeData.number} 
+                        value={employeeData.number || ''} 
                         onChange={(e)=>setEmployeeData({...employeeData,number:e.target.value})} 
                       className='border flex-1 rounded-lg focus:border-blue-400 outline-none'  />
                   </div>
@@ -96,7 +91,7 @@ const Form = () => {
                   <input type="date" name='nrc' id='nrc' 
                                     value={employeeData.dob} 
                                     onChange={(e)=>setEmployeeData({...employeeData,dob:e.target.value})}
-                                    pattern="(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/\d{4}" className='w-full border outline-none p-1 rounded-lg focus:border-blue-400' />
+                                     className='w-full border outline-none p-1 rounded-lg focus:border-blue-400' />
                 </div>
 
                 <div className='flex flex-col md:flex-row items-center'>

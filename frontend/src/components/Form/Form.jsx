@@ -1,20 +1,31 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useGlobalContext } from '../../Context/myContext';
 import FileBase64 from 'react-file-base64';
 
-//this is the custome component
+const initState={name:'',nrc:'',region:'',township:'',naing:'',number:'',
+phone:'',dob:'',dept:'',position:'',education:'' ,other_qulification:'',status:'',image:''};
 
-//on submit function, need to add the api_funciton for the data
-//staff model form need to exchange with this custome component
-//in update form, nrc place need to fix;in there , I made three selection area,when the data come from the database back, the name and the data are not matching correctly, there is some king of error;but the func are working;
 const Form = ({apiFunc,headerText,BtnText,closeBtn}) => {
-
+    const {setRespText,setAddForm,getAllStaff} = useGlobalContext();
     //if update data,the following,employeeData have to be filled the data,that's coming from the mysql,
-    const [employeeData,setEmployeeData] = useState('');
-    const onHandleSubmit =e=>{
-        e.preventDefault()
+    const [employeeData,setEmployeeData] = useState(initState);
+
+        const onHandleSubmit =e=>{
+        e.preventDefault();
+            
+        const nrc =`${employeeData.region}/${employeeData.township}(N)${employeeData.number}`;
+     
+        apiFunc({...employeeData,nrc}).then(resp=>{
+          setRespText(resp.data.message) 
+        setAddForm(false)
+        })
+        console.log(employeeData.region)
+        getAllStaff()
+        // clear()
     }
+
+    const clear =()=>setEmployeeData(initState)
   return (
     <div className='w-full md:w-3/5 m-auto mt-5 bg-white rounded-lg drop-shadow-2xl p-4 '>
 
@@ -31,15 +42,15 @@ const Form = ({apiFunc,headerText,BtnText,closeBtn}) => {
       <input type="text" name='name' id='name' 
       value={employeeData.name} 
       onChange={(e)=>setEmployeeData({...employeeData,name:e.target.value})}
-      className='w-full border outline-none p-1 rounded-lg focus:border-blue-400' />
+      className='w-full border outline-none p-1 rounded-lg focus:border-blue-400' required />
     </div>
 
       {/* need to format */}
     <div className='flex flex-col md:flex-row items-center'>
     <label htmlFor="dept" className='w-full md:w-2/4 md:text-center font-semibold text-lg'>NRC Number :</label>
-      {/* <input type="text" name='nrc' id='nrc' className='w-full border outline-none p-1 rounded-lg focus:border-blue-400' /> */}
+    
       <div name='nrc' id="nrc" className='w-full outline-none p-1 rounded-lg focus:border-blue-400 flex gap-2'>
-        <select name="region" id="" 
+        <select name="region" id="region" 
             value={employeeData.region} 
             onChange={(e)=>setEmployeeData({...employeeData,region:e.target.value})} 
         className='border outline-none p-1 rounded-lg focus:border-blue-400'>
@@ -50,9 +61,9 @@ const Form = ({apiFunc,headerText,BtnText,closeBtn}) => {
         <input type="text"  
             value={employeeData.township} 
             onChange={(e)=>setEmployeeData({...employeeData,township:e.target.value})} 
-        className='border flex-1 rounded-lg focus:border-blue-400 outline-none'  />
+        className='border flex-1 rounded-lg focus:border-blue-400 outline-none' required/>
 
-        <select name="region" id="" 
+        <select name="n" id="" 
             value={employeeData.naing} 
             onChange={(e)=>setEmployeeData({...employeeData,naing:e.target.value})} 
         className='border outline-none p-1 rounded-lg focus:border-blue-400'>
@@ -62,23 +73,23 @@ const Form = ({apiFunc,headerText,BtnText,closeBtn}) => {
         <input type="number" min={1} max={999999}
             value={employeeData.number} 
             onChange={(e)=>setEmployeeData({...employeeData,number:e.target.value})} 
-          className='border flex-1 rounded-lg focus:border-blue-400 outline-none'  />
+          className='border flex-1 rounded-lg focus:border-blue-400 outline-none' required/>
       </div>
     </div>
 
     <div className='flex flex-col md:flex-row items-center'>
-    <label htmlFor="dept" className='w-full md:w-2/4 md:text-center font-semibold text-lg'>Phone :</label>
-      <input type="tel" name='nrc' id='nrc' pattern="[0][9][0-9]{3}[0-9]{3}[0-9]{3}" 
+    <label htmlFor="ph" className='w-full md:w-2/4 md:text-center font-semibold text-lg'>Phone :</label>
+      <input type="tel" name='ph' id='ph' pattern="[0][9][0-9]{3}[0-9]{3}[0-9]{3}" 
                         value={employeeData.phone} 
-                        onChange={(e)=>setEmployeeData({...employeeData,phone:e.target.value})}className='w-full border outline-none p-1 rounded-lg focus:border-blue-400' />
+                        onChange={(e)=>setEmployeeData({...employeeData,phone:e.target.value})}className='w-full border outline-none p-1 rounded-lg focus:border-blue-400' required/>
     </div>
 
     <div className='flex flex-col md:flex-row items-center'>
-    <label htmlFor="dept" className='w-full md:w-2/4 md:text-center font-semibold text-lg'>Date Of Birth :</label>
-      <input type="date" name='nrc' id='nrc' 
+    <label htmlFor="dob" className='w-full md:w-2/4 md:text-center font-semibold text-lg'>Date Of Birth :</label>
+      <input type="date" name='dob' id='dob' 
                         value={employeeData.dob} 
                         onChange={(e)=>setEmployeeData({...employeeData,dob:e.target.value})}
-                        pattern="(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/\d{4}" className='w-full border outline-none p-1 rounded-lg focus:border-blue-400' />
+                        pattern="(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/\d{4}" className='w-full border outline-none p-1 rounded-lg focus:border-blue-400' required />
     </div>
 
     <div className='flex flex-col md:flex-row items-center'>
@@ -86,7 +97,7 @@ const Form = ({apiFunc,headerText,BtnText,closeBtn}) => {
       <input type="text" name='dept' id='dept' 
                         value={employeeData.dept} 
                         onChange={(e)=>setEmployeeData({...employeeData,dept:e.target.value})}
-       className='w-full border outline-none p-1 rounded-lg focus:border-blue-400' />
+       className='w-full border outline-none p-1 rounded-lg focus:border-blue-400' required/>
     </div>
 
     <div className='flex flex-col md:flex-row items-center'>
@@ -94,20 +105,20 @@ const Form = ({apiFunc,headerText,BtnText,closeBtn}) => {
       <input type="text" name='pos' id='pos' 
                         value={employeeData.position} 
                         onChange={(e)=>setEmployeeData({...employeeData,position:e.target.value})} 
-      className='w-full border outline-none p-1 rounded-lg focus:border-blue-400' />
+      className='w-full border outline-none p-1 rounded-lg focus:border-blue-400' required />
     </div>
 
     <div className='flex flex-col md:flex-row items-center'>
-    <label htmlFor="dept" className='w-full md:w-2/4 md:text-center font-semibold text-lg'>Education :</label>
-      <input type="text" name='nrc' id='nrc' 
+    <label htmlFor="edu" className='w-full md:w-2/4 md:text-center font-semibold text-lg'>Education :</label>
+      <input type="text" name='edu' id='edu' 
           value={employeeData.education} 
           onChange={(e)=>setEmployeeData({...employeeData,education:e.target.value})} 
-      className='w-full border outline-none p-1 rounded-lg focus:border-blue-400' />
+      className='w-full border outline-none p-1 rounded-lg focus:border-blue-400' required />
     </div>
 
     <div className='flex flex-col md:flex-row items-center'>
-      <label htmlFor="pos" className='w-full md:w-2/4 md:text-center font-semibold text-lg'>Other Qulification  :</label>
-      <input type="text" name='pos' id='pos' 
+      <label htmlFor="other" className='w-full md:w-2/4 md:text-center font-semibold text-lg'>Other Qulification  :</label>
+      <input type="text" name='other' id='other' 
           value={employeeData.other_qulification} 
           onChange={(e)=>setEmployeeData({...employeeData,other_qulification:e.target.value})} 
        className='w-full border outline-none p-1 rounded-lg focus:border-blue-400' />
@@ -119,8 +130,8 @@ const Form = ({apiFunc,headerText,BtnText,closeBtn}) => {
           value={employeeData.status} 
           onChange={(e)=>setEmployeeData({...employeeData,status:e.target.value})} 
        className='w-full border outline-none p-1 rounded-lg focus:border-blue-400'>
-        <option value="0" className=''>Resigned</option>
-        <option value="1" className=' '>Working</option>
+        <option value="0">Resigned</option>
+        <option value="1">Working</option>
       </select>
     </div>
 

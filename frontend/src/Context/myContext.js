@@ -8,14 +8,23 @@ export const Context =({children})=>{
     //check the acc is if exit in the database 
     const [haveAcc,setHaveAcc] = useState(true);
     const [dataShow,setDataShow] = useState('income');
+
+    //get all the employee
+    const [employeeData,setEmpolyeeData] = useState(undefined);
     const [getOneEmployees,setOneEmployee] = useState('');
     const [updateOneEmployee,setUpdateOneEmployee] = useState('')
-    const [employeeData,setEmpolyeeData] = useState(undefined);
-    
+
+    //for the popups box
+    const [respText,setRespText] = useState('');
+
+    setTimeout(() => {
+        setRespText('')
+    }, 2000);
+
     //get the id for a staff
     const [staffId,setStaffId] = useState(null);
     const [form,setForm] = useState(false);
-    const [addForm,setAddForm] = useState(true);
+    const [addForm,setAddForm] = useState(false);
 
 
     //get the current user data
@@ -54,6 +63,7 @@ export const Context =({children})=>{
         dataShow,setDataShow,
         staffId,setStaffId,
         addForm,setAddForm,
+        respText,setRespText,
         getOneEmployees,setOneEmployee,getOneStaff,
         form,setForm,employeeData,setEmpolyeeData,getAllStaff,updateOneEmployee
         }}>

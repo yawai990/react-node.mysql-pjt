@@ -1,7 +1,8 @@
 import React,{useState} from 'react';
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
 import { Signin,Signup } from './auth';
-import {Home,Staff} from './pages';
+import {Home,Staff,DetailChart} from './pages';
+import {Popup} from './components';
 import { useGlobalContext } from './Context/myContext';
 
 const App = () => {
@@ -19,10 +20,12 @@ const App = () => {
     </div>
   }
   return (
-    <>
+    <div>
+      <Popup />
     <Home />
     <Staff />
-    </>
+    <DetailChart />
+    </div>
   )
 }
 

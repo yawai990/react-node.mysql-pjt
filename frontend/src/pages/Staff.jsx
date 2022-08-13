@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import {AiOutlineSearch,AiOutlineClose} from 'react-icons/ai';
 import {BsPersonFill} from 'react-icons/bs';
-import {StaffForm, StaffModel,Button,AddStaff} from '../components';
+import {Update, StaffModel,Button,AddStaff} from '../components';
 import { useGlobalContext } from '../Context/myContext';
 
 const Staff = () => {
@@ -23,11 +23,11 @@ const Staff = () => {
     <div className='w-full h-screen relative'>
         
         {staffId !== null && <StaffModel />}
-        {form && <StaffForm />}
+        {form && <Update />}
         {addForm && <AddStaff />}
 
         <div className='my-3 p-4 flex items-center justify-between'>
-        <h1 className='text-2xl text-gray-600 tracking-wider font-extrabold'>Employees</h1>
+        <h1 className='text-2xl text-gray-600 tracking-wider font-extrabold font-serif'>Employees</h1>
         {user[0].role === 'admin' && <div>
             <Button text='Add New Employee' color='green' func={()=>setAddForm(!addForm)} />
             </div>}
@@ -72,11 +72,11 @@ const Staff = () => {
                                 <BsPersonFill className='w-4/5 h-4/5' />
                             </div>:<img src={staff.image} alt="" className='w-10 h-10 block rounded-full object-cover drop-shadow-xl bg-white' />}
                             
-                            <span className='ml-2'>
+                            <span className='ml-2 capitalize'>
                             {staff.name}
                             </span>
                             </td>
-                        <td className='w-52'>{staff.dept}</td>
+                        <td className='w-52 uppercase'>{staff.dept}</td>
                         <td className='w-52'>{staff.position}</td>
                         <td className='w-40'>{staff.status === "1" ? <div className='w-7 h-2 rounded-lg bg-green-600 m-auto'></div>:
                      <div className='w-7 h-2 rounded-lg bg-red-600 m-auto'></div>

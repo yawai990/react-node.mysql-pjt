@@ -22,9 +22,9 @@ const addStaff =async(req,res)=>{
     const {name,nrc,education,phone,dob,dept,position,status,image,other_qulification} = req.body;
 
     await connection.query(`INSERT INTO employees(name,nrc,education,phone,dob,dept,position,status,image,other_qulification)
-    VALUES('${name}','${nrc}','${education}','${phone}','${dob}','${dept}','${position}','${status}','${image ? image:''}','${other_qulification ? other_qulification:'null'}')`,(err,result)=>{
+    VALUES('${name}','${nrc}','${education}','${phone}','${dob}','${dept}','${position}','${status}','${image ? image:''}','${other_qulification ? other_qulification:''}')`,(err,result)=>{
         if(err) throw err;
-        res.status(204).json({
+        res.status(202).json({
             message:"new employee added successfully"
         })
     })
@@ -32,13 +32,11 @@ const addStaff =async(req,res)=>{
  const updateStaffs =async (req,res)=>{
     const id =req.params.id;
 
-    const {name,nrc,education,phone,dob,dept,position,status,image,other_qulification} = req.body;
+    const {name,region,township,number,education,phone,dob,dept,position,status,image,other_qulification} = req.body;
 
-
-    console.log(req.body)
-    await connection.query(`UPDATE employees SET name='${name}',nrc='${nrc}',education='${education}',phone='${phone}',dob='${dob}',dept='${dept}',position='${position}',status='${status}',image='${image ? image:''}',other_qulification='${other_qulification ? other_qulification:null}' WHERE id=${id}`,(err,result)=>{
+    await connection.query(`UPDATE employees SET name='${name}',nrc='${region + '/' + township + '(N)' + number}',education='${education}',phone='${phone}',dob='${dob}',dept='${dept}',position='${position}',status='${status}',image='${image ? image:''}',other_qulification='${other_qulification ? other_qulification:null}' WHERE id=${id}`,(err,result)=>{
         if(err) throw err;
-        res.status(204).json({message:'Data updated'})
+        res.status(200).json({message:'Data updated'})
     })
 };
 

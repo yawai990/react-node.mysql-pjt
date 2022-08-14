@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
 import { Signin,Signup } from './auth';
-import {Home,Staff,DetailChart} from './pages';
+import {Home,Staff,DetailChart,Product} from './pages';
 import {Popup} from './components';
 import { useGlobalContext } from './Context/myContext';
 
@@ -24,7 +24,8 @@ const App = () => {
       <Popup />
     <Home />
     <Staff />
-    <DetailChart />
+    {/* <DetailChart /> */}
+    <Product />
     </div>
   )
 }

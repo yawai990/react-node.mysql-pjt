@@ -17,6 +17,9 @@ export const Context =({children})=>{
     //for the popups box
     const [respText,setRespText] = useState('');
 
+    //product Model
+    const [productModel,setProductModel] = useState(false)
+
     setTimeout(() => {
         setRespText('')
     }, 2000);
@@ -64,6 +67,7 @@ export const Context =({children})=>{
         staffId,setStaffId,
         addForm,setAddForm,
         respText,setRespText,
+        productModel,setProductModel,
         getOneEmployees,setOneEmployee,getOneStaff,
         form,setForm,employeeData,setEmpolyeeData,getAllStaff,updateOneEmployee
         }}>

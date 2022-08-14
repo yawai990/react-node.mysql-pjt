@@ -5,3 +5,4 @@ export {default as Update} from './Form/Update';
 export {default as AddStaff} from './Form/AddStaff';
 export {default as Button} from './Button';
 export {default as Popup} from './Popup';
+export {default as ProductModel} from './ProductModel';

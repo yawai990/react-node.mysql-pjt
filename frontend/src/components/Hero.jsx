@@ -114,31 +114,7 @@ const Hero = () => {
         </div>
         </div>
 
-        <div className='p-2'>
-        <h1 className='font-bold text-2xl uppercase'>Sale Process - 2</h1>
-        <div className='flex-1 rounded-lg overflow-hidden'>
-                
-                <div className='flex justify-between items-center p-2 bg-slate-300 drop-shadow-xl'>
-                    <h4 className='font-semibold text-lg tracking-wider'>Product-1 Total Income</h4>
 
-                    <div className="flex gap-2">
-                        <button className='flex items-center'>
-                            <GoPrimitiveDot />
-                            <span>Income</span>
-                        </button>
-                        <button className='flex items-center'>
-                            <GoPrimitiveDot />
-                            <span>Expence</span>
-                        </button>
-                    </div>
-                </div>
-
-                {/* chart area */}
-                <div className='w-full h-80 bg-red-500'>
-                    <h1>I am mass income chart area</h1>
-                </div>
-            </div>
-        </div>
     </div>
   )
 }

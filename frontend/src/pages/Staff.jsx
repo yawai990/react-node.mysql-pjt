@@ -20,7 +20,7 @@ const Staff = () => {
 
 
   return (
-    <div className='w-full h-screen relative'>
+    <div className='w-full h-auto relative'>
         
         {staffId !== null && <StaffModel />}
         {form && <Update />}

@@ -1,6 +1,6 @@
-import React,{useEffect} from 'react';
+import React,{useState} from 'react';
 import {AiOutlineClose} from 'react-icons/ai';
-import { BsPersonFill } from 'react-icons/bs';
+import { BsPersonFill } from  'react-icons/bs';
 import { useGlobalContext } from '../Context/myContext';
 import Button from './Button';
 import {deleteEmployees} from '../api';
@@ -8,6 +8,7 @@ import {deleteEmployees} from '../api';
 
 const StaffModel = () => {
     const {setStaffId,user,setForm,getOneEmployees} = useGlobalContext();
+    const [loading,setLoading] = useState(false);
 
     const {id,image,name,nrc,dob,education,dept,other_qulification,phone,position} = getOneEmployees[0];
 
@@ -64,9 +65,16 @@ const StaffModel = () => {
 
                     {/* if  the user role is admin, the user can use the following func,otherwise the user can't */}
                     {user[0].role === 'admin' && <div className='flex gap-4'>
-                <Button text={'Delete'} color='#c22710' func={()=>deleteEmployees(id).then(resp=>{
+                <Button text={loading?'Deleting':'Delete Employee'} color='#c22710' func={()=>{
+                    setLoading(true)
+                    deleteEmployees(id)
+                    .then(resp=>{
+                   setLoading(false)
                     setStaffId(null)
-                })}  />
+                })
+                }
+            }
+                  />
                 <Button text={'Update'} color='#05b31a' func={setForm}/>
                 </div>
                 }

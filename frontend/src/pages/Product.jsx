@@ -1,30 +1,35 @@
 import React,{useState,useEffect} from 'react';
 import {FiPackage} from 'react-icons/fi';
 import {AiOutlineSearch,AiOutlineClose} from 'react-icons/ai';
-import { Button,ProductModel } from '../components';
+import { Button,ProductModel,Loading,AddProduct } from '../components';
 import { useGlobalContext } from '../Context/myContext';
-import {dummyProduct} from '../data'
 
 const Contact = () => {
-  const {user,productModel,setProductModel} = useGlobalContext();
-  const [productData,setProductData] = useState([])
+  const {user,addProductForm,setAddProductForm,productModel,productData,OneProduct,setProductData,getAllProducts} = useGlobalContext();
+  const [searchTerm,setSearchTerm] = useState('');
+
   const onHandleSubmit=async(e)=>{
-    e.preventDefault()
-  }
-   
-  useEffect(()=>{
-    setProductData(dummyProduct)
-  },[])
+    e.preventDefault();
+
+    const filter = productData.filter(item=>item.productName.includes(searchTerm) && item);
+
+    setProductData(filter)
+    if(searchTerm === ''){
+      getAllProducts()
+    }
+    setSearchTerm('')
+  };
 
   return (
     <div className='w-full h-auto min-h-[80vh] relative'>
         
      {productModel && <ProductModel />}
+     {addProductForm && <AddProduct />}
 
     <div className='my-3 p-4 flex items-center justify-between'>
     <h1 className='text-2xl text-gray-600 tracking-wider font-extrabold font-serif'>Our Products</h1>
     {user[0].role === 'admin' && <div>
-        <Button text='Add New Product' color='green' func={{}} />
+        <Button text='Add New Product' color='green' func={()=>setAddProductForm(!addProductForm)} />
         </div>}
     </div>
 
@@ -34,11 +39,11 @@ const Contact = () => {
 
       {/* searching a single product */}
     <form className='flex mr-2 focus:border-red-400 duration-400' onSubmit={onHandleSubmit}>
-    <input type="text" className='px-2 outline-none bg-transparent border-b border-gray-400 focus:border-red-500 duration-100' value={''} onChange={{}} />
+    <input productType="text" className='px-2 outline-none bg-transparent border-b border-gray-400 focus:border-red-500 duration-100' value={searchTerm} onChange={e=>setSearchTerm(e.target.value)} />
     <button className='flex justify-center items-center text-slate-800 text-lg'>
         <AiOutlineSearch />
     </button>
-    <button className='flex justify-center items-center text-red-700 ' onClick={{}}>
+    <button className='flex justify-center items-center text-red-700 ' onClick={()=>setSearchTerm('')}>
         <AiOutlineClose />
     </button>
     </form>
@@ -56,21 +61,22 @@ const Contact = () => {
         </thead>
         {productData === undefined || productData.length <= 0 ? <tbody>
             <tr className='my-2'>
-                <td className='text-lg font-semibold tracking-wider py-2'>No record to display</td>
+                {/* <td className='text-lg font-semibold tracking-wider py-2'>No record to display</td> */}
+                <Loading />
                 </tr>
             </tbody>:
         <tbody className='text-center capitalize'>
 
            {productData.map((item,ind)=>{
-            const {productImg,product,selling1,selling2,purchase,type,stock} = item;
-                           return <tr key={ind} className='bg-white py-2 my-2 hover:bg-gray-200 border-b cursor-pointer flex items-center' onClick={()=>setProductModel(true)}>
+            const {id,image,productName,selling1,selling2,purchase,productType,stock} = item;
+                           return <tr key={ind} className='bg-white py-2 my-2 hover:bg-gray-200 border-b cursor-pointer flex items-center' onClick={()=>OneProduct(id)}>
                     <td className='w-52 flex justify-center items-center'>
-                        {productImg === null || productImg === '' ? <div className='w-10 h-10 text-gray-400 rounded-full flex justify-center items-center bg-white drop-shadow-xl'>
+                        {image === null || image === '' ? <div className='w-10 h-10 text-gray-400 rounded-full flex justify-center items-center bg-white drop-shadow-xl'>
                             <FiPackage className='w-4/5 h-4/5' />
-                        </div>:<img src={productImg} alt="" className='w-10 h-10 block rounded-full object-cover drop-shadow-xl bg-white' />}
+                        </div>:<img src={image} alt="" className='w-10 h-10 block rounded-full object-cover drop-shadow-xl bg-white' />}
                         
                         <span className='ml-2 capitalize'>
-                        {product}
+                        {productName}
                         </span>
                         </td>
                     <td className='w-52 uppercase'>{purchase}</td>
@@ -78,8 +84,14 @@ const Contact = () => {
                     <td className='w-40'>{selling2}</td>
                     <td className='w-40'>{stock}</td>
                     <td className='w-52'>
-                      {type === '1' && 'product one'}
-                      {type === '2' && 'product two'}
+                      {productType === '0' && 'Food'}
+                      {productType === '1' && 'Watches'}
+                      {productType === '2' && 'Liquor & Drink'}
+                      {productType === '3' && 'medicine'}
+                      {productType === '4' && 'Furniture'}
+                      {productType === '5' && 'Clothes'}
+                      {productType === '6' && 'Boot'}
+                      {productType === '7' && 'other_supply'}
                     </td>
                     
                 </tr>

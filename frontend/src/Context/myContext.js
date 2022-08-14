@@ -1,5 +1,5 @@
 import React,{useState,useEffect,createContext,useContext} from "react";
-import { getEmployees,getEmployee } from "../api";
+import { getEmployees,getEmployee,getProducts,getProduct } from "../api";
 
 const myContext = createContext();
 
@@ -9,16 +9,21 @@ export const Context =({children})=>{
     const [haveAcc,setHaveAcc] = useState(true);
     const [dataShow,setDataShow] = useState('income');
 
-    //get all the employee
+    //FOR EMPLOYEES DATA
     const [employeeData,setEmpolyeeData] = useState(undefined);
     const [getOneEmployees,setOneEmployee] = useState('');
     const [updateOneEmployee,setUpdateOneEmployee] = useState('')
 
+    //PRODUCTS
+    const [productData,setProductData] = useState([]);
+    const [getOneProduct,setOneProduct] = useState('');
+    const [addProductForm,setAddProductForm] = useState(false);
+    //product Model
+    const [productModel,setProductModel] = useState(false)
+
     //for the popups box
     const [respText,setRespText] = useState('');
 
-    //product Model
-    const [productModel,setProductModel] = useState(false)
 
     setTimeout(() => {
         setRespText('')
@@ -44,9 +49,16 @@ export const Context =({children})=>{
     const getAllStaff= async()=>{
         const {data}= await getEmployees();
         setEmpolyeeData(data)
+     };
+
+        const getAllProducts=async()=>{
+            const {data} = await getProducts();
+
+            setProductData(data)
      }
     useEffect(()=>{
         getAllStaff()
+        getAllProducts()
     },[]);
     useEffect(()=>{
         getAllStaff()
@@ -60,6 +72,14 @@ export const Context =({children})=>{
         setStaffId(id)
     }
 
+    const OneProduct=async(id)=>{
+        const {data} = await getProduct(id);
+
+        setOneProduct(data)
+
+        setProductModel(true)
+    }
+
     return <myContext.Provider value={{
         haveAcc,addUser
         ,user,setHaveAcc,
@@ -69,7 +89,10 @@ export const Context =({children})=>{
         respText,setRespText,
         productModel,setProductModel,
         getOneEmployees,setOneEmployee,getOneStaff,
-        form,setForm,employeeData,setEmpolyeeData,getAllStaff,updateOneEmployee
+        form,setForm,employeeData,setEmpolyeeData,getAllStaff,updateOneEmployee,
+        productData,setProductData,getAllProducts,
+        OneProduct,getOneProduct,
+        addProductForm,setAddProductForm
         }}>
         {children}
     </myContext.Provider>

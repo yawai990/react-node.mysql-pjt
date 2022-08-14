@@ -6,13 +6,13 @@ const init={
         name:'',image:'',purchase:'',selling1:'',selling2:'',stock:'',type:''
 }
 
-const Form = () => {
+const Form = ({headerText,closeBtn,BtnText}) => {
     const [productData,setProductData] = useState(init)
   return (
     <div className='w-full md:w-3/5 m-auto mt-5 bg-white rounded-lg drop-shadow-2xl p-4 '>
 
     <div className='pb-5'>
-      <h1 className='uppercase text-lg font-semibold text-center '>{headerText}</h1>
+      <h1 className='uppercase text-lg font-semibold text-center font-serif tracking-wide text-gray-700'>{headerText}</h1>
 
     <button className='fixed top-2 right-2 bg-red-400 text-white hover:bg-red-700 p-1 drop-shadow-2xl text-xl rounded-full' onClick={closeBtn}>
         <AiOutlineClose />
@@ -66,14 +66,19 @@ const Form = () => {
 
 
     <div className='flex flex-col md:flex-row items-center'>
-      <label htmlFor="type" className='w-full md:w-2/4 md:text-center font-semibold text-lg'>Type  :</label>
+      <label htmlFor="type" className='w-full md:w-2/4 md:text-center font-semibold text-lg'>Product Type  :</label>
       <select name="type" id="type"
           value={productData.type} 
           onChange={(e)=>setProductData({...productData,type:e.target.value})} 
        className='w-full border outline-none p-1 rounded-lg focus:border-blue-400'>
         <option value="0">Food</option>
-        <option value="1">Soft Drink</option>
-        <option value="2">Liquor</option>
+        <option value="1">Drink</option>
+        <option value="2">Medicine</option>
+        <option value="3">Furniture</option>
+        <option value="4">Clothes</option>
+        <option value="5">Boots</option>
+        <option value="6">Watches</option>
+        <option value="7">Other_supply</option>
       </select>
     </div>
 

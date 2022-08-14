@@ -14,8 +14,10 @@ const Staff = () => {
         const filter = employeeData.filter(staff=>(staff.name.includes(searchTerm) || staff.dept.includes(searchTerm)) && staff);
 
         setEmpolyeeData(filter);
-
-        setSearchTerm('')
+        if(searchTerm === ''){
+            getAllStaff()
+          }
+          setSearchTerm('')
     };
 
 

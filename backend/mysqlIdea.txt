@@ -28,3 +28,20 @@ dummy data;
 
 INSERT INTO employees(name,nrc,education,phone,dob,dept,position,status,image,other_qulification)
 VALUES('aye aye','12/KaTaTa(N)098765','B.A','099876543','2020-10-4','M&E','Engineer','0',null,null);
+
+type of product =>food,drink,medicine,furniture,clothes,boot,watches,other_supply
+
+CREATE TABLE IF NOT EXISTS products(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    image LONGTEXT,
+    productName VARCHAR(50) NOT NULL,
+    purchase INT NOT NULL,
+    selling1 INT NOT NULL,
+    selling2 INT NOT NULL,
+    stock INT NOT NULL,
+    productType ENUM('0','1','2','3','4','5','6','7') NOT NULL
+);
+
+INSERT INTO products(productName,purchase,selling1,selling2,stock,productType)
+VALUES('product1',9808,9850,9000,20,'7'),
+('product2',13325,13395,14020,32,'3');

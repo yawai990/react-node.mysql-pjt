@@ -7,6 +7,7 @@ import { useGlobalContext } from './Context/myContext';
 
 const App = () => {
   const {haveAcc,staffId} = useGlobalContext();
+  const [darkTheme,setDarkTheme] = useState('light')
 
   if(!haveAcc){
    return <div className='w-screen h-screen flex justify-center items-center relative'>
@@ -20,7 +21,7 @@ const App = () => {
     </div>
   }
   return (
-    <div>
+    <div className={darkTheme === 'dark' ? 'dark':''}>
       <Popup />
     <Home />
     <Staff />

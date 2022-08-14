@@ -8,7 +8,7 @@ const Hero = () => {
     const {dataShow,setDataShow} = useGlobalContext();
 
   return (
-    <div>
+    <div className='dark:border-red-400 border'>
         <div className="flex flex-col md:flex-row justify-around gap-4 p-4 mt-5">
             <div className='flex-1 flex items-start flex-col justify-center md:h-40 bg-hero-pattern bg-center bg-cover bg-no-repeat text-white drop-shadow-2xl rounded-lg p-2 border'>
                 <h1 className='text-xl tracking-widest uppercase font-semibold text-gray-400 '>Total Revenue</h1>

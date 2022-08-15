@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
 import { Link } from 'react-router-dom';
+import {BsEyeSlashFill,BsEyeFill} from 'react-icons/bs';
 import { signup } from '../api';
 import { useGlobalContext } from '../Context/myContext';
 
@@ -13,6 +14,8 @@ const initState = {
 
 const Signup = () => {
   const {addUser}= useGlobalContext();
+  const [showPassword,setShowPassword] = useState(false);
+  const [showConfirmPassword,setShowConfirmPassword] = useState(false);
   const [newAcc,setNewAcc] = useState(initState);
   const [field,setField] = useState(false);
 
@@ -79,19 +82,31 @@ const Signup = () => {
         </div>
         <div className='my-2'>
           <label htmlFor="password" className='block mb-1 font-semibold tracking-wider'>Password</label>
-          <input type="text" name='password' id='password'
+          <div className='w-full flex'>
+          <input type={showPassword ? "text":"password"} name='password' id='password'
           value={newAcc.password}
            onChange={e=>setNewAcc({...newAcc,password:e.target.value})}  
-           className={`w-full border outline-none px-2 py-1 rounded-lg ${!checkPassword && 'border-red-400'} focus:border-blue-600`} />
+           className={`this w-full border outline-none px-2 py-1 border-r-0 rounded-l-lg ${!checkPassword && 'border-red-400'} focus:border-blue-600`} />
+          <button type='button' className='that p-1 border rounded-r-lg border-l-0' onClick={()=>setShowPassword(!showPassword)}>
+            {showPassword && <BsEyeFill />}
+            {!showPassword && <BsEyeSlashFill />}
+          </button>
+          </div>
           {!checkPassword && <span className='text-red-500 text-sm'>Password are not matching</span>}
         </div>
         <div>
           <label htmlFor="confirmpassword" className='block mb-1 font-semibold tracking-wider'>Confirm Password</label>
-          <input type="text" name='confirmpassword' id='confirmpassword' 
+          <div className="w-full flex">
+          <input  type={showConfirmPassword ? "text":"password"} name='confirmpassword' id='confirmpassword' 
            value={newAcc.confirmpassword}
            onChange={e=>setNewAcc({...newAcc,confirmpassword:e.target.value})}   
-           className={`w-full border outline-none px-2 py-1 rounded-lg focus:border-blue-600 ${!checkPassword && 'border-red-400'} `}/>
-          {!checkPassword && <span className='text-red-500 text-sm'>Password are not matching</span>}
+           className={`this w-full border outline-none px-2 py-1 border-r-0 rounded-l-lg focus:border-blue-600 ${!checkPassword && 'border-red-400'} `}/>
+          <button type='button' className='that p-1 border rounded-r-lg border-l-0' onClick={()=>setShowConfirmPassword(!showPassword)}>
+            {showPassword && <BsEyeFill />}
+            {!showPassword && <BsEyeSlashFill />}
+          </button>
+          </div>
+           {!checkPassword && <span className='text-red-500 text-sm'>Password are not matching</span>}
         </div>
     {field && <p className='text-center text-red-500 font-semibold tracking-wider py-1'>Please,fill all the require fields.</p>}
         <button type='submit' className='w-full bg-blue-700 text-white py-1 text-center border mt-3 rounded-lg hover:drop-shadow-xl'>Sign Up</button>

@@ -4,7 +4,7 @@ import { Notification,Navbars } from '../constant';
 import {useGlobalContext} from '../Context/myContext';
 
 const Navbar = () => {
-  const {user} = useGlobalContext();
+  const {user,setHaveAcc} = useGlobalContext();
   return (
     <div className='w-full h-12 bg-white drop-shadow-lg flex items-center justify-center md:justify-around'>
         <div className='w-60 h-3/4 items-center rounded-lg hidden md:flex'>
@@ -39,6 +39,10 @@ const Navbar = () => {
                   <img src="https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png" alt="" className='w-full h-full object-cover' />
               </div>
             <p className='capitalize font-semibold'>{user === '' ? 'username':user[0].name}</p>
+
+            <button className='hover:bg-red-700 capitalize border p-1 bg-red-400 text-white rounded-lg' onClick={()=>{
+              setHaveAcc('')
+            }}>log out</button>
           </div>
         </div>
     </div>

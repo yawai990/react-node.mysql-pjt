@@ -10,7 +10,7 @@ const AddStaff = () => {
   const {addForm,setAddForm} = useGlobalContext();
   return (
     <div className='w-full h-full absolute z-10 bg-black/[0.6] flex justify-center items-center'>
-      <AddUpdate headerText={'Add New Employees'} apiFunc={addNewEmpoyee} BtnText={'Add Employees'} closeBtn={()=>setAddForm(!addForm)} forUpdate={initState} />
+      <AddUpdate headerText={'Add New Employees'} apiFunc={addNewEmpoyee} BtnText={'Add Employees'} closeBtn={()=>setAddForm(!addForm)}/>
     </div>
   )
 }

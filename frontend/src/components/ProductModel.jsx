@@ -3,13 +3,13 @@ import { AiOutlineClose } from 'react-icons/ai';
 import {FiPackage} from 'react-icons/fi';
 import Button from './Button';
 import { useGlobalContext } from '../Context/myContext';
-import { dummyProduct } from '../data';
+import { deleteProduct } from '../api';
 
 const ProductModel = () => {
-    const {user,setProductModel,OneProduct,getOneProduct} = useGlobalContext();
+    const {user,setProductModel,setUpdateProductForm,setRespText,getOneProduct,getAllProducts} = useGlobalContext();
     const [loading,setLoading] = useState(false);
 
-    const {id,image,productName,purchase,selling1,selling2,productType,stock} = getOneProduct[0];
+    const {id,image,productName,purchase,selling1,selling2,product_type,stock} = getOneProduct[0];
   return (
     <div className='w-full h-full absolute z-10 bg-black/[0.6] flex justify-center items-center'>
               <div className='w-3/5 bg-white rounded-lg drop-shadow-2xl relative flex p-4 gap-4 items-center'>
@@ -52,20 +52,25 @@ const ProductModel = () => {
                 <div className='my-2'>
                     <span className='font-semibold mr-1 font-sans'>Type of Product :</span>
                     <span className='font-bold capitalize'>
-                    {productType === '1' && 'Food'}
-                      {productType === '2' && 'Liquor & Drink'}
-                      {productType === '3' && 'medicine'}
-                      {productType === '4' && 'Furniture'}
-                      {productType === '5' && 'Clothes'}
-                      {productType === '6' && 'Boot'}
-                      {productType === '7' && 'Watches'}
+                      {product_type === '0' && 'Food'} 
+                      {product_type === '1' && 'Liquor & Drink'} 
+                      {product_type === '2' && 'medicine'}
+                      {product_type === '3' && 'Furniture'}
+                      {product_type === '4' && 'Clothes'}
+                      {product_type === '5' && 'Boot'}
+                      {product_type === '6' && 'Watches'}
+                      {product_type === '7' && 'Other_supply'}
                     </span>
                 </div>
 
                     {/* if  the user role is admin, the user can use the following func,otherwise the user can't */}
                     {user[0].role === 'admin' && <div className='flex gap-4'>
-                <Button text={loading?'Deleting':'Delete Product'} color='#c22710' />
-                <Button text={'Update'} color='#05b31a' func={{}}/>
+                <Button text={loading?'Deleting':'Delete Product'} color='#c22710'  func={()=>deleteProduct(id).then(resp=>{
+                    getAllProducts()
+                    setRespText(resp.data.message)
+                    setProductModel(false)
+                })} />
+                <Button text={'Update'} color='#05b31a' func={()=>setUpdateProductForm(true)}/>
                 </div>
                 }
                 

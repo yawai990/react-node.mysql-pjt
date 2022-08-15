@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import {BsEyeSlashFill,BsEyeFill} from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { login } from '../api';
 import { useGlobalContext } from '../Context/myContext';
@@ -9,7 +10,8 @@ const initState = {
 }
 
 const Singin = () => {
-  const {user,addUser,setHaveAcc} = useGlobalContext();
+  const {addUser} = useGlobalContext();
+  const [showPassword,setShowPassword] = useState(false);
   const [data,setData] = useState(initState);
   const [incorrectPassword,setIncorrectPassword] = useState(false);
 
@@ -47,7 +49,14 @@ const Singin = () => {
         </div>
         <div className='my-3'>
           <label htmlFor="password"className='block mb-1 font-semibold tracking-wider'>Password</label>
-          <input type="text" name='password' id='password' value={data.password} onChange={e=>setData({...data,password:e.target.value})} className='w-full border outline-none px-2 py-1 rounded-lg focus:border-blue-600'/>
+          <div className='w-full flex'>
+          <input type={showPassword ? "text":"password"} name='password' id='password' value={data.password} onChange={e=>setData({...data,password:e.target.value})} className='this flex-1 border outline-none px-2 py-1 focus:border-blue-600 rounded-l-lg border-r-0'/>
+          <button type='button' className='that p-1 border rounded-r-lg border-l-0' onClick={()=>setShowPassword(!showPassword)}>
+            {showPassword && <BsEyeFill />}
+            {!showPassword && <BsEyeSlashFill />}
+            
+          </button>
+          </div>
         </div>
 
         <button type='submit' className='w-full bg-blue-700 text-white py-1 text-center border mt-3 rounded-lg hover:drop-shadow-xl'>Log In</button>

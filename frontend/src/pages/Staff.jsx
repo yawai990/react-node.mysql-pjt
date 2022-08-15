@@ -30,7 +30,7 @@ const Staff = () => {
 
         <div className='my-3 p-4 flex items-center justify-between'>
         <h1 className='text-2xl text-gray-600 tracking-wider font-extrabold font-serif'>Employees</h1>
-        {user[0].role === 'admin' && <div>
+        {user.length > 0 && user[0].role === 'admin' && <div>
             <Button text='Add New Employee' color='green' func={()=>setAddForm(!addForm)} />
             </div>}
         </div>

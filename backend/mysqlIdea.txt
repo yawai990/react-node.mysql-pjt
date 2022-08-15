@@ -39,9 +39,9 @@ CREATE TABLE IF NOT EXISTS products(
     selling1 INT NOT NULL,
     selling2 INT NOT NULL,
     stock INT NOT NULL,
-    productType ENUM('0','1','2','3','4','5','6','7') NOT NULL
+    product_type ENUM('0','1','2','3','4','5','6','7') NOT NULL DEFAULT '0'
 );
 
-INSERT INTO products(productName,purchase,selling1,selling2,stock,productType)
-VALUES('product1',9808,9850,9000,20,'7'),
-('product2',13325,13395,14020,32,'3');
+INSERT INTO products(image,productName,purchase,selling1,selling2,stock,product_type)
+VALUES('','product1',9808,9850,9000,20,'7'),
+('','product2',13325,13395,14020,32,'3');

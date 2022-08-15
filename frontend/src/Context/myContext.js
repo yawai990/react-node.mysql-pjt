@@ -6,7 +6,7 @@ const myContext = createContext();
 export const Context =({children})=>{
 
     //check the acc is if exit in the database 
-    const [haveAcc,setHaveAcc] = useState(true);
+    const [haveAcc,setHaveAcc] = useState('');
     const [dataShow,setDataShow] = useState('income');
 
     //FOR EMPLOYEES DATA
@@ -18,6 +18,7 @@ export const Context =({children})=>{
     const [productData,setProductData] = useState([]);
     const [getOneProduct,setOneProduct] = useState('');
     const [addProductForm,setAddProductForm] = useState(false);
+    const [updateProductForm,setUpdateProductForm] = useState(false)
     //product Model
     const [productModel,setProductModel] = useState(false)
 
@@ -36,7 +37,7 @@ export const Context =({children})=>{
 
 
     //get the current user data
-    const [user,setUser] = useState([{role:'admin'}]);
+    const [user,setUser] = useState('');
 
     const addUser = (userData)=>{
         setUser(userData)
@@ -92,7 +93,8 @@ export const Context =({children})=>{
         form,setForm,employeeData,setEmpolyeeData,getAllStaff,updateOneEmployee,
         productData,setProductData,getAllProducts,
         OneProduct,getOneProduct,
-        addProductForm,setAddProductForm
+        addProductForm,setAddProductForm,
+        updateProductForm,setUpdateProductForm
         }}>
         {children}
     </myContext.Provider>

@@ -7,4 +7,5 @@ export {default as Button} from './Button';
 export {default as Popup} from './Popup';
 export {default as ProductModel} from './ProductModel';
 export {default as AddProduct} from './Form/Product/AddProduct';
+export {default as UpdateProduct} from './Form/Product/UpdateProduct';
 export {default as Loading} from './Loading';

@@ -1,11 +1,11 @@
 import React,{useState,useEffect} from 'react';
 import {FiPackage} from 'react-icons/fi';
 import {AiOutlineSearch,AiOutlineClose} from 'react-icons/ai';
-import { Button,ProductModel,Loading,AddProduct } from '../components';
+import { Button,ProductModel,UpdateProduct,AddProduct } from '../components';
 import { useGlobalContext } from '../Context/myContext';
 
 const Contact = () => {
-  const {user,addProductForm,setAddProductForm,productModel,productData,OneProduct,setProductData,getAllProducts} = useGlobalContext();
+  const {user,addProductForm,setAddProductForm,productModel,productData,OneProduct,setProductData,getAllProducts,updateProductForm} = useGlobalContext();
   const [searchTerm,setSearchTerm] = useState('');
 
   const onHandleSubmit=async(e)=>{
@@ -25,10 +25,12 @@ const Contact = () => {
         
      {productModel && <ProductModel />}
      {addProductForm && <AddProduct />}
+     {updateProductForm && <UpdateProduct />}
+  
 
     <div className='my-3 p-4 flex items-center justify-between'>
     <h1 className='text-2xl text-gray-600 tracking-wider font-extrabold font-serif'>Our Products</h1>
-    {user[0].role === 'admin' && <div>
+    {user.length > 0 && user[0].role === 'admin' && <div>
         <Button text='Add New Product' color='green' func={()=>setAddProductForm(!addProductForm)} />
         </div>}
     </div>
@@ -61,15 +63,15 @@ const Contact = () => {
         </thead>
         {productData === undefined || productData.length <= 0 ? <tbody>
             <tr className='my-2'>
-                {/* <td className='text-lg font-semibold tracking-wider py-2'>No record to display</td> */}
-                <Loading />
+                <td className='text-lg font-semibold tracking-wider py-2'>No record to display</td>
+                   
                 </tr>
             </tbody>:
         <tbody className='text-center capitalize'>
 
-           {productData.map((item,ind)=>{
-            const {id,image,productName,selling1,selling2,purchase,productType,stock} = item;
-                           return <tr key={ind} className='bg-white py-2 my-2 hover:bg-gray-200 border-b cursor-pointer flex items-center' onClick={()=>OneProduct(id)}>
+           {productData.map((item)=>{
+            const {id,image,productName,selling1,selling2,purchase,product_type,stock} = item;
+                           return <tr key={id} className='bg-white py-2 my-2 hover:bg-gray-200 border-b cursor-pointer flex items-center' onClick={()=>OneProduct(id)}>
                     <td className='w-52 flex justify-center items-center'>
                         {image === null || image === '' ? <div className='w-10 h-10 text-gray-400 rounded-full flex justify-center items-center bg-white drop-shadow-xl'>
                             <FiPackage className='w-4/5 h-4/5' />
@@ -84,14 +86,14 @@ const Contact = () => {
                     <td className='w-40'>{selling2}</td>
                     <td className='w-40'>{stock}</td>
                     <td className='w-52'>
-                      {productType === '0' && 'Food'}
-                      {productType === '1' && 'Watches'}
-                      {productType === '2' && 'Liquor & Drink'}
-                      {productType === '3' && 'medicine'}
-                      {productType === '4' && 'Furniture'}
-                      {productType === '5' && 'Clothes'}
-                      {productType === '6' && 'Boot'}
-                      {productType === '7' && 'other_supply'}
+                      {product_type === '0' && 'Food'}
+                      {product_type === '1' && 'Watches'}
+                      {product_type === '2' && 'Liquor & Drink'}
+                      {product_type === '3' && 'medicine'}
+                      {product_type === '4' && 'Furniture'}
+                      {product_type === '5' && 'Clothes'}
+                      {product_type === '6' && 'Boot'}
+                      {product_type === '7' && 'other_supply'}
                     </td>
                     
                 </tr>

@@ -1,10 +1,5 @@
 const {connection} = require('../db/db');
 
-// connection.query(`SELECT * FROM users WHERE email = 'yawaiaung@gmail.com' &&  password= SHA1(12345)`,(err,result,field)=>{
-//     if(err) throw err;
-//     console.log(result)
-// })
-
 const login=async (req,res)=>{
         const {email,password} =await req.body;
 
@@ -36,7 +31,7 @@ const signUp =async (req,res)=>{
 
                     //otherwise insert the data to the database for new user
                 }else{
-                       connection.query(`INSERT INTO users(name,email,password) VALUES('${firstname + ' ' + lastname}','${email}',SHA1(${password}))`,(err,result)=>{
+                       connection.query(`INSERT INTO users(name,email,password) VALUES('${firstname + ' ' + lastname}','${email}',SHA1('${password}'))`,(err,result)=>{
                         if(err) throw err;
                         return res.status(202).json(result)
                     })
@@ -46,4 +41,22 @@ const signUp =async (req,res)=>{
 
 };
 
-module.exports = {login,signUp}
+const getAllUsers=async(req,res)=>{
+    await connection.query('SELECT * FROM users',(err,results)=>{
+        if(err) res.status(404).json(err);
+        res.status(200).json(results)
+    })
+};
+
+const deleteUser =async(req,res)=>{
+    const id = parseInt(req.params.id);
+
+    await connection.query(`DELETE FROM users WHERE id=${id}`,(err,result)=>{
+        if(err) throw err;
+        res.status(200).json({
+            message:'user deleted'
+        })
+    })
+}
+
+module.exports = {login,signUp,getAllUsers,deleteUser}

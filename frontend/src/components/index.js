@@ -9,3 +9,4 @@ export {default as ProductModel} from './ProductModel';
 export {default as AddProduct} from './Form/Product/AddProduct';
 export {default as UpdateProduct} from './Form/Product/UpdateProduct';
 export {default as Loading} from './Loading';
+export {default as CreateSuccess} from './CreateSuccess';

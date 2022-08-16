@@ -18,8 +18,15 @@ html,body{
 .nav-btn:hover::before{
     height: 100%
 }
+.that{
+    color: transparent;
+}
 .this:focus ~ .that{
     border-color: rgba(37,99,235,1);
+    color: gray;
+}
+.that:hover{
+    color: gray;
 }
 @tailwind base;
 @tailwind components;

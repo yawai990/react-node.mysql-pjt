@@ -1,5 +1,5 @@
 import React,{useState,useEffect,createContext,useContext} from "react";
-import { getEmployees,getEmployee,getProducts,getProduct } from "../api";
+import { getEmployees,getEmployee,getProducts,getProduct,getAllUsers, deleteUser } from "../api";
 
 const myContext = createContext();
 
@@ -7,6 +7,7 @@ export const Context =({children})=>{
 
     //check the acc is if exit in the database 
     const [haveAcc,setHaveAcc] = useState('');
+    const [getUsers,setGetUsers] = useState(null);
     const [dataShow,setDataShow] = useState('income');
 
     //FOR EMPLOYEES DATA
@@ -24,6 +25,7 @@ export const Context =({children})=>{
 
     //for the popups box
     const [respText,setRespText] = useState('');
+    const [signUpPopUp,setSignUpPopUp] = useState(false);
 
 
     setTimeout(() => {
@@ -47,6 +49,20 @@ export const Context =({children})=>{
         }
     }
 
+    const getallusers=async()=>{
+        const {data} = await getAllUsers();
+        setGetUsers(data)
+    };
+
+    const deleteuser=async(id)=>{
+        console.log(id)
+        await deleteUser(id)
+        .then(resp=>{
+            getallusers()
+            setRespText(resp.data.message)
+        })
+    }
+
     const getAllStaff= async()=>{
         const {data}= await getEmployees();
         setEmpolyeeData(data)
@@ -60,6 +76,7 @@ export const Context =({children})=>{
     useEffect(()=>{
         getAllStaff()
         getAllProducts()
+        getallusers()
     },[]);
     useEffect(()=>{
         getAllStaff()
@@ -88,13 +105,17 @@ export const Context =({children})=>{
         staffId,setStaffId,
         addForm,setAddForm,
         respText,setRespText,
+        signUpPopUp,setSignUpPopUp,
         productModel,setProductModel,
         getOneEmployees,setOneEmployee,getOneStaff,
-        form,setForm,employeeData,setEmpolyeeData,getAllStaff,updateOneEmployee,
+        form,setForm,
+        employeeData,setEmpolyeeData,
+        getAllStaff,updateOneEmployee,
         productData,setProductData,getAllProducts,
         OneProduct,getOneProduct,
         addProductForm,setAddProductForm,
-        updateProductForm,setUpdateProductForm
+        updateProductForm,setUpdateProductForm,
+        getUsers,deleteuser
         }}>
         {children}
     </myContext.Provider>

@@ -4,6 +4,8 @@ const URL = 'http://localhost:5000/api'
 
 export const login =accData=>axios.post(URL + '/login',accData);
 export const signup =newData=>axios.post(URL + '/create-user',newData);
+export const getAllUsers = ()=>axios.get(URL + '/get_users');
+export const deleteUser =(id)=>axios.delete(URL + `/delete_user/${id}`);
 
 export const getEmployees=()=>axios.get(URL + '/staffs');
 export const getEmployee=(id)=>axios.get(URL + `/staffs/${id}`);

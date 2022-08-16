@@ -1,12 +1,12 @@
 import React,{useState} from 'react';
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
 import { Signin,Signup } from './auth';
-import {Home,Staff,DetailChart,Product} from './pages';
+import {Home,Staff,DetailChart,Product,User} from './pages';
 import {Popup} from './components';
 import { useGlobalContext } from './Context/myContext';
 
 const App = () => {
-  const {haveAcc,staffId} = useGlobalContext();
+  const {haveAcc,staffId,user} = useGlobalContext();
   const [darkTheme,setDarkTheme] = useState('light')
 
   if(!haveAcc){
@@ -27,6 +27,8 @@ const App = () => {
     <Staff />
     {/* <DetailChart /> */}
     <Product />
+
+    {user[0].role === 'admin' &&  <User />}
     </div>
   )
 }

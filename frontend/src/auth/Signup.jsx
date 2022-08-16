@@ -1,8 +1,9 @@
 import React,{useState} from 'react';
 import { Link } from 'react-router-dom';
 import {BsEyeSlashFill,BsEyeFill} from 'react-icons/bs';
-import { signup } from '../api';
+import { login, signup } from '../api';
 import { useGlobalContext } from '../Context/myContext';
+import { CreateSuccess } from '../components';
 
 const initState = {
   firstname:'',
@@ -13,7 +14,7 @@ const initState = {
 };
 
 const Signup = () => {
-  const {addUser}= useGlobalContext();
+  const {signUpPopUp,setSignUpPopUp,addUser}= useGlobalContext();
   const [showPassword,setShowPassword] = useState(false);
   const [showConfirmPassword,setShowConfirmPassword] = useState(false);
   const [newAcc,setNewAcc] = useState(initState);
@@ -22,7 +23,7 @@ const Signup = () => {
   //checking the password are matching or not;
   const [checkPassword,setCheckPassword] = useState(true);
 
-  const onHandleSubmit =(e)=>{
+  const onHandleSubmit =async (e)=>{
     e.preventDefault()
     if(newAcc.firstname === '' || newAcc.lastname==='' || newAcc.email === '' || newAcc.password=== '' || newAcc.confirmpassword===''){
       setField(true)
@@ -33,7 +34,16 @@ const Signup = () => {
       }else{
         setCheckPassword(true)
         signup(newAcc)
-        .then(res=>addUser(res))
+        .then(res=>{
+          const data = {
+            name:newAcc.firstname + newAcc.lastname,
+            email:newAcc.email,
+            password:newAcc.password
+          };
+          if(res.status === 202){
+            setSignUpPopUp(true)
+          }
+        })
         .catch(err=>{
           alert('Something went wrong')
         })
@@ -51,6 +61,8 @@ const Signup = () => {
   }
 
   return (
+    <div className='w-screen h-screen relative flex justify-center items-center'>
+      {signUpPopUp && <CreateSuccess />}
     <div className='w-4/5 md:w-96 p-2 drop-shadow-2xl bg-white rounded-xl'>
 
       <h2 className='font-semibold uppercase text-center text-xl mt-2'>Create Account</h2>
@@ -113,6 +125,7 @@ const Signup = () => {
       </form>
 
       <Link to='/signin' className='text-sm hover:text-blue-400 text-slate-400 text-center block my-2'>Have Account? Log In?</Link>
+    </div>
     </div>
   )
 }

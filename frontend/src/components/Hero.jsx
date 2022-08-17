@@ -1,11 +1,13 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {GoPrimitiveDot} from 'react-icons/go';
 import { useGlobalContext } from '../Context/myContext';
-import {Income,Expence} from './chart';
+import {Income,Expence,Product2Exp,Product2Income,Product3Income,Product3Exp} from './chart';
 import { SparklineAreaData,NincheLineAreaData } from '../data';
 
 const Hero = () => {
     const {dataShow,setDataShow} = useGlobalContext();
+    const [product2Exp,setProduct2Exp] = useState(false);
+    const [product3Exp,setProduct3Exp] = useState(false);
 
   return (
     <div className='dark:border-red-400'>
@@ -35,7 +37,7 @@ const Hero = () => {
             <div className='w-full md:flex-1 rounded-lg overflow-hidden bg-white drop-shadow-2xl'>
                 
                 <div className='flex justify-between items-center p-2 bg-slate-300 drop-shadow-xl'>
-                    <h4 className='font-semibold text-lg tracking-wider'>Product-1 Total Income</h4>
+                    <h4 className='font-semibold text-lg tracking-wider'>Product-1 Total</h4>
 
                     <div className="flex gap-2">
                         <button className='flex items-center' 
@@ -59,7 +61,7 @@ const Hero = () => {
 
                 {/* chart area */}
                 <div className='w-full h-80 flex justify-center items-center flex-col'>
-                    {dataShow === 'income' ? <Income lineData={SparklineAreaData} />:<Expence width='80%' height='50%' />}
+                    {dataShow === 'income' ? <Income lineData={SparklineAreaData} />:<Expence width='60%' height='50%' />}
                 </div>
             </div>
 
@@ -67,14 +69,14 @@ const Hero = () => {
             <div className='w-full md:flex-1 rounded-lg overflow-hidden bg-white drop-shadow-2xl'>
                 
                 <div className='flex justify-between items-center p-2 bg-slate-300 drop-shadow-xl'>
-                    <h4 className='font-semibold text-lg tracking-wider'>Product-2 Total Income</h4>
+                    <h4 className='font-semibold text-lg tracking-wider'>Product-2 Total</h4>
 
                     <div className="flex gap-2">
-                        <button className='flex items-center'>
+                        <button style={{color:!product2Exp && 'blue'}} className='flex items-center' onClick={()=>setProduct2Exp(false)}>
                             <GoPrimitiveDot />
                             <span>Income</span>
                         </button>
-                        <button className='flex items-center'>
+                        <button style={{color:product2Exp && 'red'}} className='flex items-center' onClick={()=>setProduct2Exp(true)}>
                             <GoPrimitiveDot />
                             <span>Expence</span>
                         </button>
@@ -83,23 +85,23 @@ const Hero = () => {
 
                 {/* chart area */}
                 <div className='w-full h-80 flex justify-center items-center flex-col'>
-                {/* <Income width='60%' height='50%' lineData={NincheLineAreaData} /> */}
-                <h1>I am ninche data</h1>
+              {!product2Exp ? <Product2Income />:<Product2Exp width='60%' height='50%'  />}
+     
                 </div>
             </div>
 
             {/* pure honey card area */}
-            <div className='w-full md:flex-1 rounded-lg overflow-hidden'>
+            <div className='w-full md:flex-1 rounded-lg overflow-hidden bg-white drop-shadow-xl'>
                 
                 <div className='flex justify-between items-center p-2 bg-slate-300 drop-shadow-xl'>
-                    <h4 className='font-semibold text-lg tracking-wider'>Product-3 Total Income</h4>
+                    <h4 className='font-semibold text-lg tracking-wider'>Product-3</h4>
 
                     <div className="flex gap-2">
-                        <button className='flex items-center'>
+                        <button style={{color:!product3Exp && 'blue'}} className='flex items-center' onClick={()=>setProduct3Exp(false)}>
                             <GoPrimitiveDot />
                             <span>Income</span>
                         </button>
-                        <button className='flex items-center'>
+                        <button style={{color:product3Exp && 'red'}} className='flex items-center' onClick={()=>setProduct3Exp(true)}>
                             <GoPrimitiveDot />
                             <span>Expence</span>
                         </button>
@@ -107,8 +109,8 @@ const Hero = () => {
                 </div>
 
                 {/* chart area */}
-                <div className='w-full h-80 bg-cyan-500'>
-                    <h1>I am pure honey income chart area</h1>
+                <div className='w-full h-80 flex justify-center items-center flex-col'>
+                {!product3Exp ? <Product3Income />:<Product3Exp width='60%' height='50%' />}
                 </div>
             </div>
         </div>

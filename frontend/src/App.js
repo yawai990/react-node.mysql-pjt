@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
 import { Signin,Signup } from './auth';
-import {Home,Staff,DetailChart,Product,User} from './pages';
+import {Home,Staff,DetailChart,Product,User,Footer} from './pages';
 import {Popup} from './components';
 import { useGlobalContext } from './Context/myContext';
 
@@ -29,6 +29,7 @@ const App = () => {
     <Product />
 
     {user[0].role === 'admin' &&  <User />}
+    <Footer />
     </div>
   )
 }

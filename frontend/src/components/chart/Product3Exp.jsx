@@ -1,11 +1,9 @@
 import React from 'react';
 import { SparklineComponent, SparklineTheme, ISparklineLoadedEventArgs, Inject, SparklineTooltip } from '@syncfusion/ej2-react-charts';
-import { SparklineAreaData } from '../../data';
+import { product3Data } from '../../data';
 import Button from '../Button';
 
-const Expence = ({width,height}) => {
-  const totalIncome =  SparklineAreaData[0].yval + SparklineAreaData[1].yval + SparklineAreaData[2].yval + SparklineAreaData[3].yval;
-  
+const Product3Exp = () => {
   return (
     <>
     <div className='flex'>
@@ -14,7 +12,7 @@ const Expence = ({width,height}) => {
         5,945,623
         <span className="text-sm">MMK</span>
       </p>
-      <p className='text-sm text-gray-400'>Total product-1 Expences</p>
+      <p className='text-sm text-gray-400'>Total product-3 Expences</p>
       </div>
 
     <div className='ml-2 self-center'>
@@ -23,12 +21,12 @@ const Expence = ({width,height}) => {
       </p>
       </div>
     </div>
-          <SparklineComponent id='sparkline'
-          width={width} height={height}
+          <SparklineComponent id='product3'
+          width='60%' height='50%'
           lineWidth={1} 
            type='Line' fill='red'
           
-          dataSource={SparklineAreaData} xName='xval' 
+          dataSource={product3Data} xName='xval' 
           yName='yval' valueType='Category'    
           tooltipSettings={{
             visible:true,
@@ -45,4 +43,4 @@ const Expence = ({width,height}) => {
   )
 }
 
-export default Expence
+export default Product3Exp

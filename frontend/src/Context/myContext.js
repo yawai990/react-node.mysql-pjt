@@ -72,11 +72,18 @@ export const Context =({children})=>{
             const {data} = await getProducts();
 
             setProductData(data)
-     }
-    useEffect(()=>{
+     };
+
+     useEffect(()=>{
         getAllStaff()
         getAllProducts()
         getallusers()
+     },[user])
+    useEffect(()=>{
+            getAllStaff()
+            getAllProducts()
+            getallusers()
+        
     },[]);
     useEffect(()=>{
         getAllStaff()

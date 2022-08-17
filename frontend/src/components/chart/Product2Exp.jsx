@@ -3,9 +3,7 @@ import { SparklineComponent, SparklineTheme, ISparklineLoadedEventArgs, Inject, 
 import { SparklineAreaData } from '../../data';
 import Button from '../Button';
 
-const Expence = ({width,height}) => {
-  const totalIncome =  SparklineAreaData[0].yval + SparklineAreaData[1].yval + SparklineAreaData[2].yval + SparklineAreaData[3].yval;
-  
+const Product2Exp = ({width,height}) => {
   return (
     <>
     <div className='flex'>
@@ -14,7 +12,7 @@ const Expence = ({width,height}) => {
         5,945,623
         <span className="text-sm">MMK</span>
       </p>
-      <p className='text-sm text-gray-400'>Total product-1 Expences</p>
+      <p className='text-sm text-gray-400'>Total product-2 Expences</p>
       </div>
 
     <div className='ml-2 self-center'>
@@ -23,7 +21,7 @@ const Expence = ({width,height}) => {
       </p>
       </div>
     </div>
-          <SparklineComponent id='sparkline'
+          <SparklineComponent id=''
           width={width} height={height}
           lineWidth={1} 
            type='Line' fill='red'
@@ -45,4 +43,4 @@ const Expence = ({width,height}) => {
   )
 }
 
-export default Expence
+export default Product2Exp

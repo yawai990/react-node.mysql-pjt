@@ -1,12 +1,24 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import {FaSearch} from 'react-icons/fa';
 import { Notification,Navbars } from '../constant';
 import {useGlobalContext} from '../Context/myContext';
 
 const Navbar = () => {
+  const [sticky,setSticky] = useState(false);
+  const Navclass ='';
+  const stickyNavClass='w-full h-12 bg-white drop-shadow-lg flex items-center justify-center md:justify-around fixed top-0 z-50';
+
+  const stickyNav=()=>{
+   window.scrollY > 120 ? setSticky(true):setSticky(false)
+  }
+
+  useEffect(()=>{
+      window.addEventListener('scroll',stickyNav)
+  },[])
+
   const {user,setHaveAcc} = useGlobalContext();
   return (
-    <div className='w-full h-12 bg-white drop-shadow-lg flex items-center justify-center md:justify-around'>
+    <div className={`${sticky && 'navani'} w-full h-12 bg-white drop-shadow-lg flex items-center justify-center md:justify-around z-50 ${sticky && 'bg-transparent backdrop-blur-md border-b border-gray-400'}`}>
         <div className='w-60 h-3/4 items-center rounded-lg hidden md:flex'>
             <input type="text" className='h-3/4 border-b outline-none flex-1 focus:border-red-400 duration-50 focus:border-b-2' />
             <button className='bg-blue-500 text-white rounded-r-lg h-3/4 flex justify-center items-center p-2'>

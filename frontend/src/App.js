@@ -21,7 +21,7 @@ const App = () => {
     </div>
   }
   return (
-    <div className={darkTheme === 'dark' ? 'dark':''}>
+    <div id="App" className={darkTheme === 'dark' ? 'dark scroll-smooth':'scroll-smooth'}>
       <Popup />
     <Home />
     <Staff />

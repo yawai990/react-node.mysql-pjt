@@ -21,7 +21,7 @@ const Contact = () => {
   };
 
   return (
-    <div className='w-full h-auto min-h-[80vh] relative'>
+    <div id="products" className='w-full h-auto min-h-[80vh] relative'>
         
      {productModel && <ProductModel />}
      {addProductForm && <AddProduct />}

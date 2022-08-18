@@ -7,7 +7,7 @@ const User = () => {
     const {getUsers,deleteuser} = useGlobalContext();
 
   return (
-    <div className='w-full h-auto p-2'>
+    <div id='users' className='w-full h-auto p-2'>
 
         <h2 className='font-semibold uppercase font-sans text-xl text-gray-600'>User Lists</h2>
         <div className='p-2 flex flex-wrap gap-3'>

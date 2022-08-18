@@ -18,26 +18,22 @@ export const Notification =[
 export const Navbars=[
     {
         id:1,
+        name:'home',
         icon:<RiHome4Fill/>
     },
     {
         id:2,
+        name:'employees',
         icon:<MdPeople/>
     },
     {
         id:3,
+        name:'products',
         icon:<FaChartArea/>
     },
     {
         id:4,
+        name:'users',
         icon:<FaChartLine/>
-    },
-    {
-        id:5,
-        icon:<FaWpforms/>
-    },
-    {
-        id:6,
-        icon:<FaAddressCard/>
-    },
+    }
 ]

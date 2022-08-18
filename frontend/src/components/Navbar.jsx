@@ -5,15 +5,16 @@ import {useGlobalContext} from '../Context/myContext';
 
 const Navbar = () => {
   const [sticky,setSticky] = useState(false);
-  const Navclass ='';
-  const stickyNavClass='w-full h-12 bg-white drop-shadow-lg flex items-center justify-center md:justify-around fixed top-0 z-50';
+  const [hash,setHash] = useState('home');
 
   const stickyNav=()=>{
-   window.scrollY > 120 ? setSticky(true):setSticky(false)
+   window.scrollY > 120 && setSticky(true)
+   window.scrollY === 0 && setSticky(false);
   }
 
   useEffect(()=>{
       window.addEventListener('scroll',stickyNav)
+      setHash('home')
   },[])
 
   const {user,setHaveAcc} = useGlobalContext();
@@ -28,9 +29,9 @@ const Navbar = () => {
 
         <div className='h-full flex items-center gap-2'>
           {Navbars.map(nav=>(
-            <button key={nav.id} className='nav-btn relative h-full px-2 text-2xl text-slate-400 hover:text-white duration-200'>
+            <a href={`#${nav.name}`} key={nav.id} className='nav-btn relative h-full px-2 text-2xl text-slate-400 hover:text-white duration-200 flex justify-center items-center'>
               {nav.icon}
-            </button>
+            </a>
           ))}
         </div>
 

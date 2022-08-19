@@ -8,8 +8,8 @@ const Expence = ({width,height}) => {
   
   return (
     <>
-    <div className='flex'>
-      <div>
+    <div className='flex dark:bg-[#1c1616]'>
+      <div className='dark:bg-[#1c1616]'>
       <p className='font-semibold tracking-wider text-2xl text-gray-700'>   
         5,945,623
         <span className="text-sm">MMK</span>

@@ -22,7 +22,7 @@ const Staff = () => {
 
 
   return (
-    <div id="employees" className='w-full h-auto relative'>
+    <div id="employees" className='w-full h-auto relative dark:bg-[#3b3a3a]'>
         
         {staffId !== null && <StaffModel />}
         {form && <Update />}
@@ -37,7 +37,7 @@ const Staff = () => {
 
         <div className='w-4/5 m-auto rounded-lg drop-shadow-xl overflow-hidden'>
 
-        <section className='w-full bg-slate-100 py-2 flex justify-end'>
+        <section className='w-full bg-slate-100 py-2 flex justify-end dark:bg-[#1c1616]'>
         <form className='flex mr-2 focus:border-red-400 duration-400' onSubmit={onHandleSubmit}>
         <input type="text" className='px-2 outline-none bg-transparent border-b border-gray-400 focus:border-red-500 duration-100' value={searchTerm} onChange={e=>setSearchTerm(e.target.value)} />
         <button className='flex justify-center items-center text-slate-800 text-lg'>
@@ -60,32 +60,32 @@ const Staff = () => {
                 <th className='w-40 inline-block'>Phone</th>
                      </tr>
             </thead>
-            {employeeData === undefined || employeeData.length <= 0 ? <tbody>
+            {employeeData === undefined || employeeData.length <= 0 ? <tbody className='dark:bg-[#1c1616]'>
                 <tr className='my-2'>
                     <td className='text-lg font-semibold tracking-wider py-2'>No record to display</td>
                     </tr>
                 </tbody>:
-            <tbody className='text-center capitalize'>
+            <tbody className='text-center capitalize dark:bg-[#1c1616]'>
 
                {employeeData.map((staff,ind)=>{
-                               return <tr key={ind} className='bg-white py-2 my-2 hover:bg-gray-200 border-b cursor-pointer flex items-center' onClick={(e)=>getOneStaff(staff.id)}>
+                               return <tr key={ind} className='bg-white py-2 my-2 hover:bg-gray-200 border-b cursor-pointer flex items-center dark:bg-[#1c1616]' onClick={(e)=>getOneStaff(staff.id)}>
                         <td className='w-52 flex justify-center items-center'>
                             {staff.image === null || staff.image === '' ? <div className='w-10 h-10 text-gray-400 rounded-full flex justify-center items-center bg-white drop-shadow-xl'>
                                 <BsPersonFill className='w-4/5 h-4/5' />
                             </div>:<img src={staff.image} alt="" className='w-10 h-10 block rounded-full object-cover drop-shadow-xl bg-white' />}
                             
-                            <span className='ml-2 capitalize'>
+                            <span className='ml-2  dark:text-white'>
                             {staff.name}
                             </span>
                             </td>
-                        <td className='w-52 uppercase'>{staff.dept}</td>
-                        <td className='w-52'>{staff.position}</td>
-                        <td className='w-40'>{staff.status === "1" ? <div className='w-7 h-2 rounded-lg bg-green-600 m-auto'></div>:
+                        <td className='w-52 uppercase dark:text-white'>{staff.dept}</td>
+                        <td className='w-52 dark:text-white'>{staff.position}</td>
+                        <td className='w-40 dark:text-white'>{staff.status === "1" ? <div className='w-7 h-2 rounded-lg bg-green-600 m-auto'></div>:
                      <div className='w-7 h-2 rounded-lg bg-red-600 m-auto'></div>
                         }</td>
-                        <td className='w-40'>{staff.education}</td>
-                        <td className='w-52'>{staff.other_qulification}</td>
-                        <td className='w-40'>{staff.phone}</td>
+                        <td className='w-40 dark:text-white'>{staff.education}</td>
+                        <td className='w-52 dark:text-white'>{staff.other_qulification}</td>
+                        <td className='w-40 dark:text-white'>{staff.phone}</td>
                     </tr>
                 })}
             </tbody>

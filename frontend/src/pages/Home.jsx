@@ -3,7 +3,7 @@ import { Navbar,Hero } from '../components';
 
 const Home = () => {
   return (
-    <div id="home" className='dark:bg-black/[.8]'>
+    <div id="home" className='dark:bg-black\[.04]'>
       <Navbar />
       <Hero />
     </div>

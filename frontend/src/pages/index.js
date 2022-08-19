@@ -4,3 +4,6 @@ export {default as DetailChart} from './DetailChart';
 export {default as Product} from './Product';
 export {default as User} from './User';
 export {default as Footer} from './Footer'
+export {default as Product1} from './Product1';
+export {default as Product2} from './Product2';
+export {default as Product3} from './Product3';

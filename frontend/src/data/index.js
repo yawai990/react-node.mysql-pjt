@@ -18,6 +18,29 @@ export const product3Data = [
     { x: 4,xval:'last week',  yval: 4952325 },
   ];
 
+export const product1Details =[
+  {
+    id:1,
+    cur:'City Mart',
+    curType:'wholeSale',
+    order:'14-04-2021',
+    delivery:'14-04-2021',
+    product:'bread',
+    sellingPrice:15420,
+    quantity:5,
+  },
+  {
+    id:2,
+    cur:'AAA',
+    curType:'Retails',
+    order:'17-08-2021',
+    delivery:'18-08-2021',
+    product:'cold drink',
+    sellingPrice:2650,
+    quantity:20,
+  }
+]
+
 export const dummyProduct =[
   {
     id:1,

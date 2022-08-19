@@ -7,15 +7,15 @@ const User = () => {
     const {getUsers,deleteuser} = useGlobalContext();
 
   return (
-    <div id='users' className='w-full h-auto p-2'>
+    <div id='users' className='w-full h-auto p-2 dark:bg-[#3b3a3a]'>
 
         <h2 className='font-semibold uppercase font-sans text-xl text-gray-600'>User Lists</h2>
         <div className='p-2 flex flex-wrap gap-3'>
         {getUsers.map(user=>(
-            <div key={user.id} className="w-full md:w-auto m-3 flex px-2 py-3 relative bg-white rounded-lg drop-shadow-2xl">
-                <button className='w-7 h-7 rounded-full absolute top-1 bg-white drop-shadow right-2 flex justify-center items-center hover:drop-shadow-xl hover:bg-red-500 hover:text-white text-red-800' onClick={()=>deleteuser(user.id)}>
-                    <AiOutlineClose />
-                </button>
+            <div key={user.id} className="dark:bg-[#1c1616] dark:text-slate-200 w-full md:w-auto m-3 flex px-2 py-3 relative bg-white rounded-lg drop-shadow-2xl">
+      {user.role !== 'admin' && <button className='w-7 h-7 rounded-full absolute top-1 bg-white drop-shadow right-2 flex justify-center items-center hover:drop-shadow-xl hover:bg-red-500 hover:text-white text-red-800' onClick={()=>deleteuser(user.id)}>
+            <AiOutlineClose />
+        </button>}
                 <div className='w-2/5 p-2'>
                     {
                     user.image === null || user.image === '' ? <div className='w-20 h-20 text-gray-400 rounded-full flex justify-center items-center bg-white drop-shadow-xl'>

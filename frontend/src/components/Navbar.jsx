@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react';
-import {FaSearch} from 'react-icons/fa';
+import {BsFillSunFill} from 'react-icons/bs';
+import {FaSearch,FaMoon} from 'react-icons/fa';
 import { Notification,Navbars } from '../constant';
 import {useGlobalContext} from '../Context/myContext';
 
@@ -17,9 +18,9 @@ const Navbar = () => {
       setHash('home')
   },[])
 
-  const {user,setHaveAcc} = useGlobalContext();
+  const {user,setHaveAcc,darkTheme,setDarkTheme} = useGlobalContext();
   return (
-    <div className={`${sticky && 'navani'} w-full h-12 bg-white drop-shadow-lg flex items-center justify-center md:justify-around z-50 ${sticky && 'bg-transparent backdrop-blur-md border-b border-gray-400'}`}>
+    <div className={`${sticky && 'navani'} w-full h-12 bg-white drop-shadow-lg flex items-center justify-center md:justify-around z-50 ${sticky && 'bg-transparent backdrop-blur-md border-b border-gray-400'} dark:bg-slate-600`}>
         <div className='w-60 h-3/4 items-center rounded-lg hidden md:flex'>
             <input type="text" className='h-3/4 border-b outline-none flex-1 focus:border-red-400 duration-50 focus:border-b-2' />
             <button className='bg-blue-500 text-white rounded-r-lg h-3/4 flex justify-center items-center p-2'>
@@ -29,12 +30,18 @@ const Navbar = () => {
 
         <div className='h-full flex items-center gap-2'>
           {Navbars.map(nav=>(
-            <a href={`#${nav.name}`} key={nav.id} className='nav-btn relative h-full px-2 text-2xl text-slate-400 hover:text-white duration-200 flex justify-center items-center'>
+            <a href={`#${nav.name}`}   key={nav.id} className='nav-btn relative h-full px-2 text-2xl text-slate-400 hover:text-white duration-200 flex justify-center items-center'>
               {nav.icon}
             </a>
           ))}
         </div>
-
+            <button className='fixed right-5' onClick={e=>{
+              setDarkTheme(darkTheme === 'light' ? 'dark':'light')
+              localStorage.setItem('theme',darkTheme === 'light' ? 'dark':'light')
+              }}>
+              {darkTheme === 'light' ? <BsFillSunFill className='text-orange-500' />:<FaMoon className='text-gray-500' />}
+      
+            </button>
         <div className='md:flex gap-4 hidden'>
         <div className='flex justify-around gap-3 px-2'>
             {Notification.map(noti=>(
@@ -62,4 +69,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default Navbar;

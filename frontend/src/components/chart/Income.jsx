@@ -38,7 +38,10 @@ const Income = ({width,height,lineData}) => {
             <Inject services={[SparklineTooltip]} />
           </SparklineComponent>
 
-          <Button text={'Daily Report'} color={'#406df1'}/>
+          <a href="#product1-details"    
+           style={{backgroundColor:'#406df1'}}
+           className='mt-3 p-2 rounded-lg hover:drop-shadow-xl text-white'
+              >Daily Report</a>
           </>
   )
 }

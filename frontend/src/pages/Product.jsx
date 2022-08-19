@@ -21,7 +21,7 @@ const Contact = () => {
   };
 
   return (
-    <div id="products" className='w-full h-auto min-h-[80vh] relative'>
+    <div id="products" className='w-full h-auto min-h-[80vh] relative dark:bg-[#3b3a3a]'>
         
      {productModel && <ProductModel />}
      {addProductForm && <AddProduct />}
@@ -37,7 +37,7 @@ const Contact = () => {
 
     <div className='w-4/5 m-auto rounded-lg drop-shadow-xl overflow-hidden'>
 
-    <section className='w-full bg-slate-100 py-2 flex justify-end'>
+    <section className='w-full bg-slate-100 py-2 flex justify-end dark:bg-[#1c1616]'>
 
       {/* searching a single product */}
     <form className='flex mr-2 focus:border-red-400 duration-400' onSubmit={onHandleSubmit}>
@@ -61,31 +61,31 @@ const Contact = () => {
             <th className='w-52 inline-block'>Type</th>
                  </tr>
         </thead>
-        {productData === undefined || productData.length <= 0 ? <tbody>
-            <tr className='my-2'>
+        {productData === undefined || productData.length <= 0 ? <tbody className='dark:bg-[#1c1616]'>
+            <tr className='my-2 dark:bg-[#1c1616]'>
                 <td className='text-lg font-semibold tracking-wider py-2'>No record to display</td>
                    
                 </tr>
             </tbody>:
-        <tbody className='text-center capitalize'>
+        <tbody className='text-center capitalize dark:bg-[#1c1616]'>
 
            {productData.map((item)=>{
             const {id,image,productName,selling1,selling2,purchase,product_type,stock} = item;
-                           return <tr key={id} className='bg-white py-2 my-2 hover:bg-gray-200 border-b cursor-pointer flex items-center' onClick={()=>OneProduct(id)}>
+                           return <tr key={id} className='bg-white py-2 my-2 hover:bg-gray-200 border-b cursor-pointer flex items-center dark:bg-[#1c1616] dark:text-white' onClick={()=>OneProduct(id)}>
                     <td className='w-52 flex justify-center items-center'>
                         {image === null || image === '' ? <div className='w-10 h-10 text-gray-400 rounded-full flex justify-center items-center bg-white drop-shadow-xl'>
                             <FiPackage className='w-4/5 h-4/5' />
                         </div>:<img src={image} alt="" className='w-10 h-10 block rounded-full object-cover drop-shadow-xl bg-white' />}
                         
-                        <span className='ml-2 capitalize'>
+                        <span className='ml-2 capitalize dark:text-white'>
                         {productName}
                         </span>
                         </td>
-                    <td className='w-52 uppercase'>{purchase}</td>
-                    <td className='w-40'>{selling1}</td>
-                    <td className='w-40'>{selling2}</td>
-                    <td className='w-40'>{stock}</td>
-                    <td className='w-52'>
+                    <td className='w-52 uppercase dark:text-white'>{purchase}</td>
+                    <td className='w-40 dark:text-white'>{selling1}</td>
+                    <td className='w-40 dark:text-white'>{selling2}</td>
+                    <td className='w-40 dark:text-white'>{stock}</td>
+                    <td className='w-52 dark:text-white'>
                       {product_type === '0' && 'Food'}
                       {product_type === '1' && 'Watches'}
                       {product_type === '2' && 'Liquor & Drink'}

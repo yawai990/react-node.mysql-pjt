@@ -60,7 +60,7 @@ const Hero = () => {
                 </div>
 
                 {/* chart area */}
-                <div className='w-full h-80 flex justify-center items-center flex-col'>
+                <div className='w-full h-80 flex justify-center items-center flex-col dark:bg-[#1c1616]'>
                     {dataShow === 'income' ? <Income lineData={SparklineAreaData} />:<Expence width='60%' height='50%' />}
                 </div>
             </div>
@@ -84,7 +84,7 @@ const Hero = () => {
                 </div>
 
                 {/* chart area */}
-                <div className='w-full h-80 flex justify-center items-center flex-col'>
+                <div className='w-full h-80 flex justify-center items-center flex-col dark:bg-[#1c1616]'>
               {!product2Exp ? <Product2Income />:<Product2Exp width='60%' height='50%'  />}
      
                 </div>
@@ -109,7 +109,7 @@ const Hero = () => {
                 </div>
 
                 {/* chart area */}
-                <div className='w-full h-80 flex justify-center items-center flex-col'>
+                <div className='w-full h-80 flex justify-center items-center flex-col dark:bg-[#1c1616] dark:text-white'>
                 {!product3Exp ? <Product3Income />:<Product3Exp width='60%' height='50%' />}
                 </div>
             </div>

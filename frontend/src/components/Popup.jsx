@@ -6,7 +6,7 @@ const Popup = () => {
 
   return (
     <div 
-    className={`${respText !== '' ? 'fixed bottom-5 right-5 p-4 rounded-lg drop-shadow-xl z-50':'hidden'} bg-green-600 duration-500`}>
+    className={`${respText !== '' ? 'fixed bottom-5 right-5 p-4 rounded-lg drop-shadow-xl z-50':'hidden'} bg-green-600 duration-500 dark:bg-black`}>
             <p className='capitalize tracking-wider font-serif text-white'>{respText}</p>
     </div>
   )

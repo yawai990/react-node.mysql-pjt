@@ -5,6 +5,9 @@ const myContext = createContext();
 
 export const Context =({children})=>{
 
+    //theme
+  const [darkTheme,setDarkTheme] = useState('dark');
+
     //check the acc is if exit in the database 
     const [haveAcc,setHaveAcc] = useState('');
     const [getUsers,setGetUsers] = useState(null);
@@ -55,7 +58,7 @@ export const Context =({children})=>{
     };
 
     const deleteuser=async(id)=>{
-        console.log(id)
+        
         await deleteUser(id)
         .then(resp=>{
             getallusers()
@@ -83,7 +86,9 @@ export const Context =({children})=>{
             getAllStaff()
             getAllProducts()
             getallusers()
-        
+           const theme= localStorage.getItem('theme');
+
+           setDarkTheme(theme)
     },[]);
     useEffect(()=>{
         getAllStaff()
@@ -122,7 +127,8 @@ export const Context =({children})=>{
         OneProduct,getOneProduct,
         addProductForm,setAddProductForm,
         updateProductForm,setUpdateProductForm,
-        getUsers,deleteuser
+        getUsers,deleteuser,
+        darkTheme,setDarkTheme
         }}>
         {children}
     </myContext.Provider>
